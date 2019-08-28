@@ -42,6 +42,7 @@ public class login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         salir = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -56,7 +57,7 @@ public class login extends javax.swing.JFrame {
                 identificacionUsuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(identificacionUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 263, 40));
+        getContentPane().add(identificacionUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 263, 40));
 
         claveUsuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         claveUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -64,7 +65,7 @@ public class login extends javax.swing.JFrame {
                 claveUsuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(claveUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 263, 40));
+        getContentPane().add(claveUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 263, 40));
 
         ingresarLogin.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         ingresarLogin.setText("Ingresar");
@@ -73,15 +74,15 @@ public class login extends javax.swing.JFrame {
                 ingresarLoginActionPerformed(evt);
             }
         });
-        getContentPane().add(ingresarLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 110, 40));
+        getContentPane().add(ingresarLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, 110, 40));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel2.setText("                 Identificación");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 210, 40));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 210, 40));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel3.setText("                   Contraseña");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 210, 40));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 210, 40));
 
         salir.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         salir.setText("Salir");
@@ -90,7 +91,8 @@ public class login extends javax.swing.JFrame {
                 salirActionPerformed(evt);
             }
         });
-        getContentPane().add(salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 110, 40));
+        getContentPane().add(salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 110, 40));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -208,6 +210,7 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables
 }
