@@ -30,6 +30,18 @@ public class usuarioLogica {
         return usuario.findUsuario(a);
     }
     
+    public void crearUsuario(Usuario u) throws Exception{
+        if(u == null){
+            throw new Exception("El usuario no contiene informacion");
+        }
+        Usuario us = usuario.findUsuario(u.getCedula());
+        if(us == null){
+            usuario.create(u);
+        }else{
+            throw new Exception("Usuario ya registrado en la base de datos");
+        }
+    }
+    
      public static void main(String args[]) throws Exception {
         List<Usuario> usuarios;
         usuarioLogica us = new usuarioLogica();
