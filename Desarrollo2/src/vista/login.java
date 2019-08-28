@@ -51,7 +51,7 @@ public class login extends javax.swing.JFrame {
         jLabel1.setText("Bienvenido al sistema de consolidacion de objetivos");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 500, 46));
 
-        identificacionUsuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        identificacionUsuario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         identificacionUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 identificacionUsuarioActionPerformed(evt);
@@ -59,7 +59,7 @@ public class login extends javax.swing.JFrame {
         });
         getContentPane().add(identificacionUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 263, 40));
 
-        claveUsuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        claveUsuario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         claveUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 claveUsuarioActionPerformed(evt);
