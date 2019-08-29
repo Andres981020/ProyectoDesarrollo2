@@ -29,17 +29,15 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Usuario
  */
 @Entity
-@Table(name = "objetivo", catalog = "balanceScoreCard", schema = "")
+@Table(name = "objetivo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Objetivo.findAll", query = "SELECT o FROM Objetivo o")
     , @NamedQuery(name = "Objetivo.findByCodigoObjetivo", query = "SELECT o FROM Objetivo o WHERE o.codigoObjetivo = :codigoObjetivo")
     , @NamedQuery(name = "Objetivo.findByDescripcionObjetivo", query = "SELECT o FROM Objetivo o WHERE o.descripcionObjetivo = :descripcionObjetivo")
-    , @NamedQuery(name = "Objetivo.findByFecha", query = "SELECT o FROM Objetivo o WHERE o.fecha = :fecha")})
+    , @NamedQuery(name = "Objetivo.findByFecha", query = "SELECT o FROM Objetivo o WHERE o.fecha = :fecha")
+    , @NamedQuery(name = "Objetivo.findByPerspectiva", query = "SELECT o FROM Objetivo o WHERE o.perspectiva = :perspectiva")})
 public class Objetivo implements Serializable {
-
-    @Column(name = "perspectiva")
-    private String perspectiva;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,6 +50,8 @@ public class Objetivo implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
+    @Column(name = "perspectiva")
+    private String perspectiva;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "indicadorObjetivo")
     private Collection<Indicador> indicadorCollection;
     @JoinColumn(name = "creador_objetivo", referencedColumnName = "cedula")
@@ -96,6 +96,14 @@ public class Objetivo implements Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public String getPerspectiva() {
+        return perspectiva;
+    }
+
+    public void setPerspectiva(String perspectiva) {
+        this.perspectiva = perspectiva;
     }
 
     @XmlTransient
@@ -156,14 +164,6 @@ public class Objetivo implements Serializable {
     @Override
     public String toString() {
         return "modelo.Objetivo[ codigoObjetivo=" + codigoObjetivo + " ]";
-    }
-
-    public String getPerspectiva() {
-        return perspectiva;
-    }
-
-    public void setPerspectiva(String perspectiva) {
-        this.perspectiva = perspectiva;
     }
     
 }

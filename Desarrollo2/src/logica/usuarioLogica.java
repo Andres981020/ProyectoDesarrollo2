@@ -9,8 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Indicador;
+import modelo.Iniciativa;
+import modelo.Meta;
 import modelo.Objetivo;
 import modelo.Usuario;
+import persistencia.IndicadorJpaController;
+import persistencia.IniciativaJpaController;
+import persistencia.MetaJpaController;
 import persistencia.ObjetivoJpaController;
 import persistencia.UsuarioJpaController;
 import persistencia.exceptions.IllegalOrphanException;
@@ -24,6 +30,9 @@ public class usuarioLogica {
     
     private UsuarioJpaController usuario = new UsuarioJpaController();
     private ObjetivoJpaController objetivo = new ObjetivoJpaController();
+    private IniciativaJpaController iniciativa = new IniciativaJpaController();
+    private IndicadorJpaController indicador = new IndicadorJpaController();
+    private MetaJpaController meta = new MetaJpaController();
     
     public usuarioLogica(){
     }
@@ -101,6 +110,54 @@ public class usuarioLogica {
             }
         }
         return objetivosPerspectiva;
+    }
+    
+    public void crearObjetivo(Objetivo o) throws Exception{
+        if(o == null){
+            throw new Exception("El objetivo no contiene informacion");
+        }
+        Objetivo ob = objetivo.findObjetivo(o.getCodigoObjetivo());
+        if(ob == null){
+            objetivo.create(o);
+        }else{
+            throw new Exception("Objetivo ya registrado en la base de datos");
+        }
+    }
+    
+    public void crearIniciativa(Iniciativa i) throws Exception{
+        if(i == null){
+            throw new Exception("La iniciativa no contiene informacion");
+        }
+        Iniciativa in = iniciativa.findIniciativa(i.getCodigoIniciativa());
+        if(in == null){
+            iniciativa.create(i);
+        }else{
+            throw new Exception("Iniciativa ya registrado en la base de datos");
+        }
+    }
+    
+    public void crearIndicador(Indicador i) throws Exception{
+        if(i == null){
+            throw new Exception("El indicador no contiene informacion");
+        }
+        Indicador ind = indicador.findIndicador(i.getCodigoIndicador());
+        if(ind == null){
+            indicador.create(i);
+        }else{
+            throw new Exception("Indicador ya registrado en la base de datos");
+        }
+    }
+    
+    public void crearMeta(Meta m) throws Exception{
+        if(m == null){
+            throw new Exception("La meta  no contiene informacion");
+        }
+        Meta me = meta.findMeta(m.getCodigoMeta());
+        if(me == null){
+            meta.create(m);
+        }else{
+            throw new Exception("Meta ya registrado en la base de datos");
+        }
     }
     
      public static void main(String args[]) throws Exception {

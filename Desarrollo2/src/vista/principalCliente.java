@@ -97,6 +97,7 @@ public class principalCliente extends javax.swing.JFrame {
         perspectivaCrecimiento = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         perspectivaPI = new javax.swing.JTable();
+        agregarO = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -166,8 +167,23 @@ public class principalCliente extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 380, -1, 200));
 
+        agregarO.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        agregarO.setText("Agregar objetivo");
+        agregarO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarOActionPerformed(evt);
+            }
+        });
+        getContentPane().add(agregarO, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void agregarOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarOActionPerformed
+        definirObjetivo definir = new definirObjetivo();
+        definir.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_agregarOActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,6 +221,7 @@ public class principalCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton agregarO;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

@@ -17,7 +17,6 @@ import javax.persistence.criteria.Root;
 import modelo.Indicador;
 import modelo.Objetivo;
 import persistencia.exceptions.NonexistentEntityException;
-import persistencia.exceptions.PreexistingEntityException;
 
 /**
  *
@@ -34,7 +33,7 @@ public class IndicadorJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Indicador indicador) throws PreexistingEntityException, Exception {
+    public void create(Indicador indicador) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -50,11 +49,6 @@ public class IndicadorJpaController implements Serializable {
                 indicadorObjetivo = em.merge(indicadorObjetivo);
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findIndicador(indicador.getCodigoIndicador()) != null) {
-                throw new PreexistingEntityException("Indicador " + indicador + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -87,7 +81,7 @@ public class IndicadorJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = indicador.getCodigoIndicador();
+                Integer id = indicador.getCodigoIndicador();
                 if (findIndicador(id) == null) {
                     throw new NonexistentEntityException("The indicador with id " + id + " no longer exists.");
                 }
@@ -100,7 +94,7 @@ public class IndicadorJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(Integer id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -150,7 +144,7 @@ public class IndicadorJpaController implements Serializable {
         }
     }
 
-    public Indicador findIndicador(String id) {
+    public Indicador findIndicador(Integer id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Indicador.class, id);

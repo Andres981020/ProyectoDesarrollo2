@@ -17,7 +17,6 @@ import javax.persistence.criteria.Root;
 import modelo.Iniciativa;
 import modelo.Objetivo;
 import persistencia.exceptions.NonexistentEntityException;
-import persistencia.exceptions.PreexistingEntityException;
 
 /**
  *
@@ -34,7 +33,7 @@ public class IniciativaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Iniciativa iniciativa) throws PreexistingEntityException, Exception {
+    public void create(Iniciativa iniciativa) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -50,11 +49,6 @@ public class IniciativaJpaController implements Serializable {
                 iniciativaObjetivo = em.merge(iniciativaObjetivo);
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findIniciativa(iniciativa.getCodigoIniciativa()) != null) {
-                throw new PreexistingEntityException("Iniciativa " + iniciativa + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -87,7 +81,7 @@ public class IniciativaJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = iniciativa.getCodigoIniciativa();
+                Integer id = iniciativa.getCodigoIniciativa();
                 if (findIniciativa(id) == null) {
                     throw new NonexistentEntityException("The iniciativa with id " + id + " no longer exists.");
                 }
@@ -100,7 +94,7 @@ public class IniciativaJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(Integer id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -150,7 +144,7 @@ public class IniciativaJpaController implements Serializable {
         }
     }
 
-    public Iniciativa findIniciativa(String id) {
+    public Iniciativa findIniciativa(Integer id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Iniciativa.class, id);

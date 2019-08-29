@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Usuario
  */
 @Entity
-@Table(name = "meta", catalog = "balanceScoreCard", schema = "")
+@Table(name = "meta")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Meta.findAll", query = "SELECT m FROM Meta m")
@@ -36,9 +38,10 @@ public class Meta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "codigo_meta")
-    private String codigoMeta;
+    private Integer codigoMeta;
     @Basic(optional = false)
     @Column(name = "descripcion_meta")
     private String descripcionMeta;
@@ -52,20 +55,20 @@ public class Meta implements Serializable {
     public Meta() {
     }
 
-    public Meta(String codigoMeta) {
+    public Meta(Integer codigoMeta) {
         this.codigoMeta = codigoMeta;
     }
 
-    public Meta(String codigoMeta, String descripcionMeta) {
+    public Meta(Integer codigoMeta, String descripcionMeta) {
         this.codigoMeta = codigoMeta;
         this.descripcionMeta = descripcionMeta;
     }
 
-    public String getCodigoMeta() {
+    public Integer getCodigoMeta() {
         return codigoMeta;
     }
 
-    public void setCodigoMeta(String codigoMeta) {
+    public void setCodigoMeta(Integer codigoMeta) {
         this.codigoMeta = codigoMeta;
     }
 

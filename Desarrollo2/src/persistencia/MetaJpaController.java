@@ -17,7 +17,6 @@ import javax.persistence.criteria.Root;
 import modelo.Meta;
 import modelo.Objetivo;
 import persistencia.exceptions.NonexistentEntityException;
-import persistencia.exceptions.PreexistingEntityException;
 
 /**
  *
@@ -34,7 +33,7 @@ public class MetaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Meta meta) throws PreexistingEntityException, Exception {
+    public void create(Meta meta) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -50,11 +49,6 @@ public class MetaJpaController implements Serializable {
                 metaObjetivo = em.merge(metaObjetivo);
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findMeta(meta.getCodigoMeta()) != null) {
-                throw new PreexistingEntityException("Meta " + meta + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -87,7 +81,7 @@ public class MetaJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = meta.getCodigoMeta();
+                Integer id = meta.getCodigoMeta();
                 if (findMeta(id) == null) {
                     throw new NonexistentEntityException("The meta with id " + id + " no longer exists.");
                 }
@@ -100,7 +94,7 @@ public class MetaJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(Integer id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -150,7 +144,7 @@ public class MetaJpaController implements Serializable {
         }
     }
 
-    public Meta findMeta(String id) {
+    public Meta findMeta(Integer id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Meta.class, id);

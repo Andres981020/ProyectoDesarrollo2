@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Usuario
  */
 @Entity
-@Table(name = "indicador", catalog = "balanceScoreCard", schema = "")
+@Table(name = "indicador")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Indicador.findAll", query = "SELECT i FROM Indicador i")
@@ -36,9 +38,10 @@ public class Indicador implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "codigo_indicador")
-    private String codigoIndicador;
+    private Integer codigoIndicador;
     @Basic(optional = false)
     @Column(name = "descripcion_indicador")
     private String descripcionIndicador;
@@ -52,20 +55,20 @@ public class Indicador implements Serializable {
     public Indicador() {
     }
 
-    public Indicador(String codigoIndicador) {
+    public Indicador(Integer codigoIndicador) {
         this.codigoIndicador = codigoIndicador;
     }
 
-    public Indicador(String codigoIndicador, String descripcionIndicador) {
+    public Indicador(Integer codigoIndicador, String descripcionIndicador) {
         this.codigoIndicador = codigoIndicador;
         this.descripcionIndicador = descripcionIndicador;
     }
 
-    public String getCodigoIndicador() {
+    public Integer getCodigoIndicador() {
         return codigoIndicador;
     }
 
-    public void setCodigoIndicador(String codigoIndicador) {
+    public void setCodigoIndicador(Integer codigoIndicador) {
         this.codigoIndicador = codigoIndicador;
     }
 

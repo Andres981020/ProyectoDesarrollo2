@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Usuario
  */
 @Entity
-@Table(name = "iniciativa", catalog = "balanceScoreCard", schema = "")
+@Table(name = "iniciativa")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Iniciativa.findAll", query = "SELECT i FROM Iniciativa i")
@@ -36,9 +38,10 @@ public class Iniciativa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "codigo_iniciativa")
-    private String codigoIniciativa;
+    private Integer codigoIniciativa;
     @Basic(optional = false)
     @Column(name = "descripcion_iniciativa")
     private String descripcionIniciativa;
@@ -52,20 +55,20 @@ public class Iniciativa implements Serializable {
     public Iniciativa() {
     }
 
-    public Iniciativa(String codigoIniciativa) {
+    public Iniciativa(Integer codigoIniciativa) {
         this.codigoIniciativa = codigoIniciativa;
     }
 
-    public Iniciativa(String codigoIniciativa, String descripcionIniciativa) {
+    public Iniciativa(Integer codigoIniciativa, String descripcionIniciativa) {
         this.codigoIniciativa = codigoIniciativa;
         this.descripcionIniciativa = descripcionIniciativa;
     }
 
-    public String getCodigoIniciativa() {
+    public Integer getCodigoIniciativa() {
         return codigoIniciativa;
     }
 
-    public void setCodigoIniciativa(String codigoIniciativa) {
+    public void setCodigoIniciativa(Integer codigoIniciativa) {
         this.codigoIniciativa = codigoIniciativa;
     }
 

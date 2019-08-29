@@ -1,4 +1,4 @@
-package persistencia.exceptions;
+package logica.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;

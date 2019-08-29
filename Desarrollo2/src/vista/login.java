@@ -19,6 +19,7 @@ public class login extends javax.swing.JFrame {
     
     private usuarioLogica usuarioL = new usuarioLogica();
     private List<Usuario> usuarios;
+    boolean bool = true;
     
     public login() {
         super("Sistema de consolidacion de objetivos");
@@ -107,9 +108,9 @@ public class login extends javax.swing.JFrame {
 
     private void ingresarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarLoginActionPerformed
         usuarios = usuarioL.consultar();
-        boolean bool = true;
                 
         for(Usuario u: usuarios){
+            
             if(identificacionUsuario.getText().equals(u.getCedula()) && claveUsuario.getText().equals(u.getClave()) && u.getTipoUsuario().equals("Administrador")){
                funcionAdministrador funciones = new funcionAdministrador();
                funciones.setVisible(true);
@@ -149,19 +150,17 @@ public class login extends javax.swing.JFrame {
                bool = false;
                break;
             }
-            
+            /*
             else if(identificacionUsuario.getText().equals("") || claveUsuario.getText().equals("")){
                JOptionPane.showMessageDialog(null,"Llene todos los campos, por favor");
-               identificacionUsuario.setText("");
-               claveUsuario.setText("");
-            }
+               break;
+            }*/
             
-            else{
-                JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrecto");
-                identificacionUsuario.setText("");
-                claveUsuario.setText("");
-            }
         } 
+        if(bool == true)
+           JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrecto");
+                identificacionUsuario.setText(""); 
+                claveUsuario.setText("");
     }//GEN-LAST:event_ingresarLoginActionPerformed
 
     private void claveUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_claveUsuarioActionPerformed
