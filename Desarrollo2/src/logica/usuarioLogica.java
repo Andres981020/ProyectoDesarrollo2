@@ -6,9 +6,13 @@
 package logica;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Usuario;
 import persistencia.ObjetivoJpaController;
 import persistencia.UsuarioJpaController;
+import persistencia.exceptions.IllegalOrphanException;
+import persistencia.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -30,6 +34,13 @@ public class usuarioLogica {
         return usuario.findUsuario(a);
     }
     
+    public void eliminarUsuario(String u) throws IllegalOrphanException{
+        try {
+            usuario.destroy(u);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(usuarioLogica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void crearUsuario(Usuario u) throws Exception{
         if(u == null){
             throw new Exception("El usuario no contiene informacion");

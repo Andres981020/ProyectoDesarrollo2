@@ -6,10 +6,13 @@
 package vista;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.usuarioLogica;
 import modelo.Usuario;
+import persistencia.exceptions.IllegalOrphanException;
 
 /**
  *
@@ -18,6 +21,8 @@ import modelo.Usuario;
 public class operacionesUsuarios extends javax.swing.JFrame {
 
     usuarioLogica usuarioL = new usuarioLogica();
+    int fila;
+    boolean clic = false;
 
     public operacionesUsuarios() {
         super("Operaciones sobre ususarios");
@@ -81,6 +86,11 @@ public class operacionesUsuarios extends javax.swing.JFrame {
                 "", "", "", ""
             }
         ));
+        tablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaUsuarios);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1310, 390));
@@ -127,19 +137,34 @@ public class operacionesUsuarios extends javax.swing.JFrame {
         Usuario usuario = new Usuario();
         usuario = usuarios.get(1);
         System.out.print(usuario.getNombres());*/
-        System.out.print(tablaUsuarios.getSelectedRow());
+        //System.out.print(tablaUsuarios.getSelectedRow());
 
     }//GEN-LAST:event_modificarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        // TODO add your handling code here:
+        try {
+            List<Usuario> usuarios = usuarioL.consultar();
+            Usuario usuario = new Usuario();
+            usuario = usuarios.get(fila);
+            
+            usuarioL.eliminarUsuario(usuario.getCedula());
+            
+            //tablaUsuarios.remove
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(operacionesUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        operacionesUsuarios u = new operacionesUsuarios();
+        u.setVisible(true);
+        dispose();
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void habilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_habilitarActionPerformed
         tablaUsuarios.setEnabled(true);
-        JOptionPane.showMessageDialog(this, "Cambie los datos que desee realizar de los usuarios que desee, "
-                + "posteriormente presione modificar");
     }//GEN-LAST:event_habilitarActionPerformed
+
+    private void tablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuariosMouseClicked
+        fila = tablaUsuarios.getSelectedRow();
+    }//GEN-LAST:event_tablaUsuariosMouseClicked
 
     /**
      * @param args the command line arguments
