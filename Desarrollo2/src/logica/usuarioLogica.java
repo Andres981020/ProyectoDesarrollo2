@@ -5,9 +5,11 @@
  */
 package logica;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Objetivo;
 import modelo.Usuario;
 import persistencia.ObjetivoJpaController;
 import persistencia.UsuarioJpaController;
@@ -25,7 +27,9 @@ public class usuarioLogica {
     
     public usuarioLogica(){
     }
-
+    
+    //Funciones relacionadas con los usuarios
+    
     public List<Usuario> consultar(){
         return usuario.findUsuarioEntities();
     }
@@ -51,6 +55,52 @@ public class usuarioLogica {
         }else{
             throw new Exception("Usuario ya registrado en la base de datos");
         }
+    }
+    
+    //Funciones relacionadas con los objetivos
+    
+    public List<Objetivo> objetivosPerspectivaCliente(){
+        List<Objetivo> objetivos = objetivo.findObjetivoEntities();
+        ArrayList<Objetivo> objetivosPerspectiva = new ArrayList<Objetivo>();
+        for(Objetivo o: objetivos){
+            if(o.getPerspectiva().equals("Perspectiva cliente")){
+                objetivosPerspectiva.add(o);
+            }
+        }
+        return objetivosPerspectiva;
+    }
+    
+    public List<Objetivo> objetivosPerspectivaFinanciera(){
+        List<Objetivo> objetivos = objetivo.findObjetivoEntities();
+        ArrayList<Objetivo> objetivosPerspectiva = new ArrayList<Objetivo>();
+        for(Objetivo o: objetivos){
+            if(o.getPerspectiva().equals("Perspectiva financiera")){
+                objetivosPerspectiva.add(o);
+            }
+        }
+        return objetivosPerspectiva;
+    }
+    
+    public List<Objetivo> objetivosPerspectivaCrecimiento(){
+        List<Objetivo> objetivos = objetivo.findObjetivoEntities();
+        ArrayList<Objetivo> objetivosPerspectiva = new ArrayList<Objetivo>();
+        for(Objetivo o: objetivos){
+            if(o.getPerspectiva().equals("Perspectiva crecimiento y aprendizaje")){
+                objetivosPerspectiva.add(o);
+            }
+        }
+        return objetivosPerspectiva;
+    }
+    
+    public List<Objetivo> objetivosPerspectivaProcesos(){
+        List<Objetivo> objetivos = objetivo.findObjetivoEntities();
+        ArrayList<Objetivo> objetivosPerspectiva = new ArrayList<Objetivo>();
+        for(Objetivo o: objetivos){
+            if(o.getPerspectiva().equals("Perspectiva procesos internos")){
+                objetivosPerspectiva.add(o);
+            }
+        }
+        return objetivosPerspectiva;
     }
     
      public static void main(String args[]) throws Exception {

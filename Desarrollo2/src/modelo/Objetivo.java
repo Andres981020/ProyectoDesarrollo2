@@ -38,6 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Objetivo.findByFecha", query = "SELECT o FROM Objetivo o WHERE o.fecha = :fecha")})
 public class Objetivo implements Serializable {
 
+    @Column(name = "perspectiva")
+    private String perspectiva;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -153,6 +156,14 @@ public class Objetivo implements Serializable {
     @Override
     public String toString() {
         return "modelo.Objetivo[ codigoObjetivo=" + codigoObjetivo + " ]";
+    }
+
+    public String getPerspectiva() {
+        return perspectiva;
+    }
+
+    public void setPerspectiva(String perspectiva) {
+        this.perspectiva = perspectiva;
     }
     
 }

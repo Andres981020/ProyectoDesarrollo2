@@ -119,7 +119,7 @@ public class login extends javax.swing.JFrame {
             }
             
             else if(identificacionUsuario.getText().equals(u.getCedula()) && claveUsuario.getText().equals(u.getClave()) && u.getTipoUsuario().equals("Perspectiva cliente")){
-               principal interfazPrincipal = new principal();
+               principalCliente interfazPrincipal = new principalCliente();
                interfazPrincipal.setVisible(true);
                dispose();
                bool = false;
@@ -127,7 +127,7 @@ public class login extends javax.swing.JFrame {
             }
             
             else if(identificacionUsuario.getText().equals(u.getCedula()) && claveUsuario.getText().equals(u.getClave()) && u.getTipoUsuario().equals("Perspectiva financiera")){
-               principal interfazPrincipal = new principal();
+               principalFinanciera interfazPrincipal = new principalFinanciera();
                interfazPrincipal.setVisible(true);
                dispose();
                bool = false;
@@ -135,7 +135,7 @@ public class login extends javax.swing.JFrame {
             }
             
             else if(identificacionUsuario.getText().equals(u.getCedula()) && claveUsuario.getText().equals(u.getClave()) && u.getTipoUsuario().equals("Perspectiva procesos internos")){
-               principal interfazPrincipal = new principal();
+               principalCrecimiento interfazPrincipal = new principalCrecimiento();
                interfazPrincipal.setVisible(true);
                dispose();
                bool = false;
@@ -143,7 +143,7 @@ public class login extends javax.swing.JFrame {
             }
             
             else if(identificacionUsuario.getText().equals(u.getCedula()) && claveUsuario.getText().equals(u.getClave()) && u.getTipoUsuario().equals("Perspectiva crecimiento y aprendizaje")){
-               principal interfazPrincipal = new principal();
+               principalProcesos interfazPrincipal = new principalProcesos();
                interfazPrincipal.setVisible(true);
                dispose();
                bool = false;
