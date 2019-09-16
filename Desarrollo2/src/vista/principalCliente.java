@@ -7,6 +7,7 @@ package vista;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import logica.objetivoLogica;
 import logica.usuarioLogica;
 import modelo.Objetivo;
 
@@ -16,8 +17,8 @@ import modelo.Objetivo;
  */
 public class principalCliente extends javax.swing.JFrame {
 
-    usuarioLogica usuarioL = new usuarioLogica();
-    
+    objetivoLogica objetivoL = new objetivoLogica();
+
     public principalCliente() {
         super("Interfaz principal");
         initComponents();
@@ -38,10 +39,10 @@ public class principalCliente extends javax.swing.JFrame {
         tabla4.addColumn("Descripcion del objetivo");
         tabla4.addColumn("Indicador del objetivo");
         
-        List<Objetivo> objetivosC = usuarioL.objetivosPerspectivaCliente();
-        List<Objetivo> objetivosF = usuarioL.objetivosPerspectivaFinanciera();
-        List<Objetivo> objetivosCA = usuarioL.objetivosPerspectivaCrecimiento();
-        List<Objetivo> objetivosP = usuarioL.objetivosPerspectivaProcesos();
+        List<Objetivo> objetivosC = objetivoL.objetivosPerspectivaCliente();
+        List<Objetivo> objetivosF = objetivoL.objetivosPerspectivaFinanciera();
+        List<Objetivo> objetivosCA = objetivoL.objetivosPerspectivaCrecimiento();
+        List<Objetivo> objetivosP = objetivoL.objetivosPerspectivaProcesos();
         
         String[] datos1 = new String[2];
         String[] datos2 = new String[2];
@@ -180,7 +181,7 @@ public class principalCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarOActionPerformed
-        definirObjetivo definir = new definirObjetivo();
+        defObjetivo definir = new defObjetivo();
         definir.setVisible(true);
         dispose();
     }//GEN-LAST:event_agregarOActionPerformed

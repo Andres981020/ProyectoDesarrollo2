@@ -7,6 +7,7 @@ package vista;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import logica.objetivoLogica;
 import logica.usuarioLogica;
 import modelo.Objetivo;
 
@@ -16,7 +17,7 @@ import modelo.Objetivo;
  */
 public class principalFinanciera extends javax.swing.JFrame {
 
-    usuarioLogica usuarioL = new usuarioLogica();
+    objetivoLogica objetivoL = new objetivoLogica();
     
     public principalFinanciera() {
         super("Interfaz principal");
@@ -38,10 +39,10 @@ public class principalFinanciera extends javax.swing.JFrame {
         tabla4.addColumn("Descripcion del objetivo");
         tabla4.addColumn("Indicador del objetivo");
         
-        List<Objetivo> objetivosC = usuarioL.objetivosPerspectivaCliente();
-        List<Objetivo> objetivosF = usuarioL.objetivosPerspectivaFinanciera();
-        List<Objetivo> objetivosCA = usuarioL.objetivosPerspectivaCrecimiento();
-        List<Objetivo> objetivosP = usuarioL.objetivosPerspectivaProcesos();
+        List<Objetivo> objetivosC = objetivoL.objetivosPerspectivaCliente();
+        List<Objetivo> objetivosF = objetivoL.objetivosPerspectivaFinanciera();
+        List<Objetivo> objetivosCA = objetivoL.objetivosPerspectivaCrecimiento();
+        List<Objetivo> objetivosP = objetivoL.objetivosPerspectivaProcesos();
         
         String[] datos1 = new String[2];
         String[] datos2 = new String[2];
