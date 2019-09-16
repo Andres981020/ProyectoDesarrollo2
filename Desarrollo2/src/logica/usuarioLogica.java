@@ -29,7 +29,7 @@ import persistencia.exceptions.NonexistentEntityException;
 public class usuarioLogica {
     
     private UsuarioJpaController usuario = new UsuarioJpaController();
-    private ObjetivoJpaController objetivo = new ObjetivoJpaController();
+    
     private IniciativaJpaController iniciativa = new IniciativaJpaController();
     private IndicadorJpaController indicador = new IndicadorJpaController();
     private MetaJpaController meta = new MetaJpaController();
@@ -66,63 +66,7 @@ public class usuarioLogica {
         }
     }
     
-    //Funciones relacionadas con los objetivos
     
-    public List<Objetivo> objetivosPerspectivaCliente(){
-        List<Objetivo> objetivos = objetivo.findObjetivoEntities();
-        ArrayList<Objetivo> objetivosPerspectiva = new ArrayList<Objetivo>();
-        for(Objetivo o: objetivos){
-            if(o.getPerspectiva().equals("Perspectiva cliente")){
-                objetivosPerspectiva.add(o);
-            }
-        }
-        return objetivosPerspectiva;
-    }
-    
-    public List<Objetivo> objetivosPerspectivaFinanciera(){
-        List<Objetivo> objetivos = objetivo.findObjetivoEntities();
-        ArrayList<Objetivo> objetivosPerspectiva = new ArrayList<Objetivo>();
-        for(Objetivo o: objetivos){
-            if(o.getPerspectiva().equals("Perspectiva financiera")){
-                objetivosPerspectiva.add(o);
-            }
-        }
-        return objetivosPerspectiva;
-    }
-    
-    public List<Objetivo> objetivosPerspectivaCrecimiento(){
-        List<Objetivo> objetivos = objetivo.findObjetivoEntities();
-        ArrayList<Objetivo> objetivosPerspectiva = new ArrayList<Objetivo>();
-        for(Objetivo o: objetivos){
-            if(o.getPerspectiva().equals("Perspectiva crecimiento y aprendizaje")){
-                objetivosPerspectiva.add(o);
-            }
-        }
-        return objetivosPerspectiva;
-    }
-    
-    public List<Objetivo> objetivosPerspectivaProcesos(){
-        List<Objetivo> objetivos = objetivo.findObjetivoEntities();
-        ArrayList<Objetivo> objetivosPerspectiva = new ArrayList<Objetivo>();
-        for(Objetivo o: objetivos){
-            if(o.getPerspectiva().equals("Perspectiva procesos internos")){
-                objetivosPerspectiva.add(o);
-            }
-        }
-        return objetivosPerspectiva;
-    }
-    
-    public void crearObjetivo(Objetivo o) throws Exception{
-        if(o == null){
-            throw new Exception("El objetivo no contiene informacion");
-        }
-        Objetivo ob = objetivo.findObjetivo(o.getCodigoObjetivo());
-        if(ob == null){
-            objetivo.create(o);
-        }else{
-            throw new Exception("Objetivo ya registrado en la base de datos");
-        }
-    }
     
     public void crearIniciativa(Iniciativa i) throws Exception{
         if(i == null){
