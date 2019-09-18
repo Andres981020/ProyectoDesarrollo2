@@ -53,7 +53,6 @@ public class operacionesUsuarios extends javax.swing.JFrame {
             tabla.addRow(datos);
         }
         tablaUsuarios.setModel(tabla);
-        tablaUsuarios.setEnabled(false);
     }
 
     /**
@@ -72,7 +71,6 @@ public class operacionesUsuarios extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         modificar = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
-        habilitar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -100,7 +98,7 @@ public class operacionesUsuarios extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -5, 1330, 500));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -5, 1330, 590));
 
         modificar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         modificar.setText("Modificar usuario");
@@ -120,25 +118,44 @@ public class operacionesUsuarios extends javax.swing.JFrame {
         });
         getContentPane().add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 530, -1, -1));
 
-        habilitar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        habilitar.setText("Habilitar tabla");
-        habilitar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                habilitarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(habilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 530, -1, -1));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-        /*List<Usuario> usuarios = usuarioL.consultar();
+        List<Usuario> usuarios = usuarioL.consultar();
         Usuario usuario = new Usuario();
-        usuario = usuarios.get(1);
-        System.out.print(usuario.getNombres());*/
-        //System.out.print(tablaUsuarios.getSelectedRow());
-
+        if(fila != 0){
+            usuario = usuarios.get(fila);
+            String clave = JOptionPane.showInputDialog(null, "Ingrese la nueva clave si desea cambiarla",
+                                "Modificacion de usuario", JOptionPane.INFORMATION_MESSAGE);
+            String telefono = JOptionPane.showInputDialog(null, "Ingrese el nuevo numero telefonico si desea cambiarlo",
+                                "Modificacion de usuario", JOptionPane.INFORMATION_MESSAGE);
+            String direccion = JOptionPane.showInputDialog(null, "Ingrese la nueva direccion si desea",
+                                "Modificacion de usuario", JOptionPane.INFORMATION_MESSAGE);
+            String correo = JOptionPane.showInputDialog(null, "Ingrese el nuevo e-mail si desea",
+                                "Modificacion de usuario", JOptionPane.INFORMATION_MESSAGE);
+            if(!"".equals(clave)){
+                usuario.setClave(clave);
+            }
+            if(!"".equals(telefono)){
+                usuario.setTelefono(telefono);
+            }
+            if(!"".equals(direccion)){
+                usuario.setDireccion(direccion);
+            }
+            if(!"".equals(correo)){
+                usuario.setCorreoElectronico(correo);
+            }
+            try {
+                usuarioL.editarUsuario(usuario);
+            } catch (Exception ex) {
+                Logger.getLogger(operacionesUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        else{
+            JOptionPane.showMessageDialog(null,"Seleccione otro usuario");
+        }
     }//GEN-LAST:event_modificarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
@@ -157,10 +174,6 @@ public class operacionesUsuarios extends javax.swing.JFrame {
         u.setVisible(true);
         dispose();
     }//GEN-LAST:event_eliminarActionPerformed
-
-    private void habilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_habilitarActionPerformed
-        tablaUsuarios.setEnabled(true);
-    }//GEN-LAST:event_habilitarActionPerformed
 
     private void tablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuariosMouseClicked
         fila = tablaUsuarios.getSelectedRow();
@@ -203,7 +216,6 @@ public class operacionesUsuarios extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton eliminar;
-    private javax.swing.JButton habilitar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

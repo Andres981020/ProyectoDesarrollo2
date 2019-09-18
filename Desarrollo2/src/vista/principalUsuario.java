@@ -51,22 +51,22 @@ public class principalUsuario extends javax.swing.JFrame {
         
         for(Objetivo o: objetivosC){
             datos1[0] = o.getDescripcionObjetivo();
-            datos1[1] = o.getIndicadorCollection().toString();
+            datos1[1] = o.getIndicadorList().toString();
         }
         
         for(Objetivo o: objetivosF){
             datos2[0] = o.getDescripcionObjetivo();
-            datos2[1] = o.getIndicadorCollection().toString();
+            datos2[1] = o.getIndicadorList().toString();
         }
         
         for(Objetivo o: objetivosCA){
             datos3[0] = o.getDescripcionObjetivo();
-            datos3[1] = o.getIndicadorCollection().toString();
+            datos3[1] = o.getIndicadorList().toString();
         }
         
         for(Objetivo o: objetivosP){
             datos4[0] = o.getDescripcionObjetivo();
-            datos4[1] = o.getIndicadorCollection().toString();
+            datos4[1] = o.getIndicadorList().toString();
         }
         
         perspectivaC.setModel(tabla1);

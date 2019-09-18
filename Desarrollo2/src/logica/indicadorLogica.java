@@ -5,8 +5,11 @@
  */
 package logica;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Indicador;
 import persistencia.IndicadorJpaController;
+import persistencia.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -28,6 +31,10 @@ public class indicadorLogica {
         }else{
             throw new Exception("Indicador ya registrado en la base de datos");
         }
+    }
+    
+    public void eliminarIndicador(int i) throws NonexistentEntityException{
+            indicador.destroy(i);
     }
     
 }

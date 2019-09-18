@@ -12,7 +12,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import modelo.Objetivo;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -38,27 +37,27 @@ public class UsuarioJpaController implements Serializable {
     }
 
     public void create(Usuario usuario) throws PreexistingEntityException, Exception {
-        if (usuario.getObjetivoCollection() == null) {
-            usuario.setObjetivoCollection(new ArrayList<Objetivo>());
+        if (usuario.getObjetivoList() == null) {
+            usuario.setObjetivoList(new ArrayList<Objetivo>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Collection<Objetivo> attachedObjetivoCollection = new ArrayList<Objetivo>();
-            for (Objetivo objetivoCollectionObjetivoToAttach : usuario.getObjetivoCollection()) {
-                objetivoCollectionObjetivoToAttach = em.getReference(objetivoCollectionObjetivoToAttach.getClass(), objetivoCollectionObjetivoToAttach.getCodigoObjetivo());
-                attachedObjetivoCollection.add(objetivoCollectionObjetivoToAttach);
+            List<Objetivo> attachedObjetivoList = new ArrayList<Objetivo>();
+            for (Objetivo objetivoListObjetivoToAttach : usuario.getObjetivoList()) {
+                objetivoListObjetivoToAttach = em.getReference(objetivoListObjetivoToAttach.getClass(), objetivoListObjetivoToAttach.getCodigoObjetivo());
+                attachedObjetivoList.add(objetivoListObjetivoToAttach);
             }
-            usuario.setObjetivoCollection(attachedObjetivoCollection);
+            usuario.setObjetivoList(attachedObjetivoList);
             em.persist(usuario);
-            for (Objetivo objetivoCollectionObjetivo : usuario.getObjetivoCollection()) {
-                Usuario oldCreadorObjetivoOfObjetivoCollectionObjetivo = objetivoCollectionObjetivo.getCreadorObjetivo();
-                objetivoCollectionObjetivo.setCreadorObjetivo(usuario);
-                objetivoCollectionObjetivo = em.merge(objetivoCollectionObjetivo);
-                if (oldCreadorObjetivoOfObjetivoCollectionObjetivo != null) {
-                    oldCreadorObjetivoOfObjetivoCollectionObjetivo.getObjetivoCollection().remove(objetivoCollectionObjetivo);
-                    oldCreadorObjetivoOfObjetivoCollectionObjetivo = em.merge(oldCreadorObjetivoOfObjetivoCollectionObjetivo);
+            for (Objetivo objetivoListObjetivo : usuario.getObjetivoList()) {
+                Usuario oldCreadorObjetivoOfObjetivoListObjetivo = objetivoListObjetivo.getCreadorObjetivo();
+                objetivoListObjetivo.setCreadorObjetivo(usuario);
+                objetivoListObjetivo = em.merge(objetivoListObjetivo);
+                if (oldCreadorObjetivoOfObjetivoListObjetivo != null) {
+                    oldCreadorObjetivoOfObjetivoListObjetivo.getObjetivoList().remove(objetivoListObjetivo);
+                    oldCreadorObjetivoOfObjetivoListObjetivo = em.merge(oldCreadorObjetivoOfObjetivoListObjetivo);
                 }
             }
             em.getTransaction().commit();
@@ -80,36 +79,36 @@ public class UsuarioJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Usuario persistentUsuario = em.find(Usuario.class, usuario.getCedula());
-            Collection<Objetivo> objetivoCollectionOld = persistentUsuario.getObjetivoCollection();
-            Collection<Objetivo> objetivoCollectionNew = usuario.getObjetivoCollection();
+            List<Objetivo> objetivoListOld = persistentUsuario.getObjetivoList();
+            List<Objetivo> objetivoListNew = usuario.getObjetivoList();
             List<String> illegalOrphanMessages = null;
-            for (Objetivo objetivoCollectionOldObjetivo : objetivoCollectionOld) {
-                if (!objetivoCollectionNew.contains(objetivoCollectionOldObjetivo)) {
+            for (Objetivo objetivoListOldObjetivo : objetivoListOld) {
+                if (!objetivoListNew.contains(objetivoListOldObjetivo)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Objetivo " + objetivoCollectionOldObjetivo + " since its creadorObjetivo field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Objetivo " + objetivoListOldObjetivo + " since its creadorObjetivo field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Collection<Objetivo> attachedObjetivoCollectionNew = new ArrayList<Objetivo>();
-            for (Objetivo objetivoCollectionNewObjetivoToAttach : objetivoCollectionNew) {
-                objetivoCollectionNewObjetivoToAttach = em.getReference(objetivoCollectionNewObjetivoToAttach.getClass(), objetivoCollectionNewObjetivoToAttach.getCodigoObjetivo());
-                attachedObjetivoCollectionNew.add(objetivoCollectionNewObjetivoToAttach);
+            List<Objetivo> attachedObjetivoListNew = new ArrayList<Objetivo>();
+            for (Objetivo objetivoListNewObjetivoToAttach : objetivoListNew) {
+                objetivoListNewObjetivoToAttach = em.getReference(objetivoListNewObjetivoToAttach.getClass(), objetivoListNewObjetivoToAttach.getCodigoObjetivo());
+                attachedObjetivoListNew.add(objetivoListNewObjetivoToAttach);
             }
-            objetivoCollectionNew = attachedObjetivoCollectionNew;
-            usuario.setObjetivoCollection(objetivoCollectionNew);
+            objetivoListNew = attachedObjetivoListNew;
+            usuario.setObjetivoList(objetivoListNew);
             usuario = em.merge(usuario);
-            for (Objetivo objetivoCollectionNewObjetivo : objetivoCollectionNew) {
-                if (!objetivoCollectionOld.contains(objetivoCollectionNewObjetivo)) {
-                    Usuario oldCreadorObjetivoOfObjetivoCollectionNewObjetivo = objetivoCollectionNewObjetivo.getCreadorObjetivo();
-                    objetivoCollectionNewObjetivo.setCreadorObjetivo(usuario);
-                    objetivoCollectionNewObjetivo = em.merge(objetivoCollectionNewObjetivo);
-                    if (oldCreadorObjetivoOfObjetivoCollectionNewObjetivo != null && !oldCreadorObjetivoOfObjetivoCollectionNewObjetivo.equals(usuario)) {
-                        oldCreadorObjetivoOfObjetivoCollectionNewObjetivo.getObjetivoCollection().remove(objetivoCollectionNewObjetivo);
-                        oldCreadorObjetivoOfObjetivoCollectionNewObjetivo = em.merge(oldCreadorObjetivoOfObjetivoCollectionNewObjetivo);
+            for (Objetivo objetivoListNewObjetivo : objetivoListNew) {
+                if (!objetivoListOld.contains(objetivoListNewObjetivo)) {
+                    Usuario oldCreadorObjetivoOfObjetivoListNewObjetivo = objetivoListNewObjetivo.getCreadorObjetivo();
+                    objetivoListNewObjetivo.setCreadorObjetivo(usuario);
+                    objetivoListNewObjetivo = em.merge(objetivoListNewObjetivo);
+                    if (oldCreadorObjetivoOfObjetivoListNewObjetivo != null && !oldCreadorObjetivoOfObjetivoListNewObjetivo.equals(usuario)) {
+                        oldCreadorObjetivoOfObjetivoListNewObjetivo.getObjetivoList().remove(objetivoListNewObjetivo);
+                        oldCreadorObjetivoOfObjetivoListNewObjetivo = em.merge(oldCreadorObjetivoOfObjetivoListNewObjetivo);
                     }
                 }
             }
@@ -143,12 +142,12 @@ public class UsuarioJpaController implements Serializable {
                 throw new NonexistentEntityException("The usuario with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            Collection<Objetivo> objetivoCollectionOrphanCheck = usuario.getObjetivoCollection();
-            for (Objetivo objetivoCollectionOrphanCheckObjetivo : objetivoCollectionOrphanCheck) {
+            List<Objetivo> objetivoListOrphanCheck = usuario.getObjetivoList();
+            for (Objetivo objetivoListOrphanCheckObjetivo : objetivoListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Usuario (" + usuario + ") cannot be destroyed since the Objetivo " + objetivoCollectionOrphanCheckObjetivo + " in its objetivoCollection field has a non-nullable creadorObjetivo field.");
+                illegalOrphanMessages.add("This Usuario (" + usuario + ") cannot be destroyed since the Objetivo " + objetivoListOrphanCheckObjetivo + " in its objetivoList field has a non-nullable creadorObjetivo field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);

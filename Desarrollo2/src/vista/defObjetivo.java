@@ -167,25 +167,28 @@ public class defObjetivo extends javax.swing.JFrame {
             Meta met = new Meta();
             
             // Creación de los objetivos
-            obj.setCodigoObjetivo(idUsuario.getText());
+            obj.setCodigoObjetivo(codigoO.getText());
             obj.setFecha(objDate);
-            obj.setCreadorObjetivo(u);
             obj.setDescripcionObjetivo(descripcionO.getText());
+            obj.setCreadorObjetivo(u);
             obj.setPerspectiva(usuario.encontrar(idUsuario.getText()).getTipoUsuario());
             
             objetivo.crearObjetivo(obj);
             
             //Creacion de iniciativa
+            ini.setCodigoIniciativa(0);
             ini.setDescripcionIniciativa(indicadorO.getText());
             ini.setFechaIniciativa(objDate);
             ini.setIniciativaObjetivo(obj);
             
             //Creacion de indicador
+            ind.setCodigoIndicador(0);
             ind.setDescripcionIndicador(indicadorO.getText());
             ind.setFechaIndicador(objDate);
             ind.setIndicadorObjetivo(obj);
             
             //Creacion de meta
+            met.setCodigoMeta(0);
             met.setDescripcionMeta(metaO.getText());
             met.setFechaMeta(objDate);
             met.setMetaObjetivo(obj);

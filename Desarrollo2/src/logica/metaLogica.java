@@ -7,6 +7,7 @@ package logica;
 
 import modelo.Meta;
 import persistencia.MetaJpaController;
+import persistencia.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -28,5 +29,9 @@ public class metaLogica {
         }else{
             throw new Exception("Meta ya registrado en la base de datos");
         }
+    }
+    
+    public void eliminarMeta(int m) throws NonexistentEntityException{
+        meta.destroy(m);
     }
 }

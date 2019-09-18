@@ -6,9 +6,16 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import modelo.Indicador;
 import modelo.Objetivo;
 import persistencia.ObjetivoJpaController;
+import persistencia.exceptions.IllegalOrphanException;
+import persistencia.exceptions.NonexistentEntityException;
 
 public class objetivoLogica {
     private ObjetivoJpaController objetivo = new ObjetivoJpaController();
@@ -73,5 +80,41 @@ public class objetivoLogica {
             throw new Exception("Objetivo ya registrado en la base de datos");
         }
     }
+    
+    public void eliminarObjetivo(String u) throws IllegalOrphanException{
+        try {
+            objetivo.destroy(u);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(usuarioLogica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public Objetivo buscarObjetivo(String codigo){
+        return objetivo.findObjetivo(codigo);
+    }
+    
+    public Objetivo buscarObjetivoDescripcion(String descripcion, List<Objetivo> objetivos){
+        Objetivo obj = new Objetivo(); 
+        for(Objetivo o: objetivos){
+            if(o.getDescripcionObjetivo().equals(descripcion)){
+                obj = o;
+            }
+        }
+        return obj;
+    }
+    
+    public static void main(String args[]) throws Exception {
+        List<Objetivo> objetivos;
+        objetivoLogica ob = new objetivoLogica();
+        objetivos = ob.objetivosPerspectivaCliente();
+        
+        for(Objetivo o: objetivos){
+            List<Indicador> indicadores;
+            indicadores = o.getIndicadorList();
+            for(Indicador i: indicadores){
+                System.out.println(i.getDescripcionIndicador());
+            }
+        }
+     }
     
 }

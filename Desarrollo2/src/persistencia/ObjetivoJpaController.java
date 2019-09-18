@@ -13,10 +13,10 @@ import javax.persistence.criteria.Root;
 import modelo.Usuario;
 import modelo.Indicador;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import modelo.Iniciativa;
 import modelo.Meta;
@@ -41,14 +41,14 @@ public class ObjetivoJpaController implements Serializable {
     }
 
     public void create(Objetivo objetivo) throws PreexistingEntityException, Exception {
-        if (objetivo.getIndicadorCollection() == null) {
-            objetivo.setIndicadorCollection(new ArrayList<Indicador>());
+        if (objetivo.getIndicadorList() == null) {
+            objetivo.setIndicadorList(new ArrayList<Indicador>());
         }
-        if (objetivo.getIniciativaCollection() == null) {
-            objetivo.setIniciativaCollection(new ArrayList<Iniciativa>());
+        if (objetivo.getIniciativaList() == null) {
+            objetivo.setIniciativaList(new ArrayList<Iniciativa>());
         }
-        if (objetivo.getMetaCollection() == null) {
-            objetivo.setMetaCollection(new ArrayList<Meta>());
+        if (objetivo.getMetaList() == null) {
+            objetivo.setMetaList(new ArrayList<Meta>());
         }
         EntityManager em = null;
         try {
@@ -59,54 +59,54 @@ public class ObjetivoJpaController implements Serializable {
                 creadorObjetivo = em.getReference(creadorObjetivo.getClass(), creadorObjetivo.getCedula());
                 objetivo.setCreadorObjetivo(creadorObjetivo);
             }
-            Collection<Indicador> attachedIndicadorCollection = new ArrayList<Indicador>();
-            for (Indicador indicadorCollectionIndicadorToAttach : objetivo.getIndicadorCollection()) {
-                indicadorCollectionIndicadorToAttach = em.getReference(indicadorCollectionIndicadorToAttach.getClass(), indicadorCollectionIndicadorToAttach.getCodigoIndicador());
-                attachedIndicadorCollection.add(indicadorCollectionIndicadorToAttach);
+            List<Indicador> attachedIndicadorList = new ArrayList<Indicador>();
+            for (Indicador indicadorListIndicadorToAttach : objetivo.getIndicadorList()) {
+                indicadorListIndicadorToAttach = em.getReference(indicadorListIndicadorToAttach.getClass(), indicadorListIndicadorToAttach.getCodigoIndicador());
+                attachedIndicadorList.add(indicadorListIndicadorToAttach);
             }
-            objetivo.setIndicadorCollection(attachedIndicadorCollection);
-            Collection<Iniciativa> attachedIniciativaCollection = new ArrayList<Iniciativa>();
-            for (Iniciativa iniciativaCollectionIniciativaToAttach : objetivo.getIniciativaCollection()) {
-                iniciativaCollectionIniciativaToAttach = em.getReference(iniciativaCollectionIniciativaToAttach.getClass(), iniciativaCollectionIniciativaToAttach.getCodigoIniciativa());
-                attachedIniciativaCollection.add(iniciativaCollectionIniciativaToAttach);
+            objetivo.setIndicadorList(attachedIndicadorList);
+            List<Iniciativa> attachedIniciativaList = new ArrayList<Iniciativa>();
+            for (Iniciativa iniciativaListIniciativaToAttach : objetivo.getIniciativaList()) {
+                iniciativaListIniciativaToAttach = em.getReference(iniciativaListIniciativaToAttach.getClass(), iniciativaListIniciativaToAttach.getCodigoIniciativa());
+                attachedIniciativaList.add(iniciativaListIniciativaToAttach);
             }
-            objetivo.setIniciativaCollection(attachedIniciativaCollection);
-            Collection<Meta> attachedMetaCollection = new ArrayList<Meta>();
-            for (Meta metaCollectionMetaToAttach : objetivo.getMetaCollection()) {
-                metaCollectionMetaToAttach = em.getReference(metaCollectionMetaToAttach.getClass(), metaCollectionMetaToAttach.getCodigoMeta());
-                attachedMetaCollection.add(metaCollectionMetaToAttach);
+            objetivo.setIniciativaList(attachedIniciativaList);
+            List<Meta> attachedMetaList = new ArrayList<Meta>();
+            for (Meta metaListMetaToAttach : objetivo.getMetaList()) {
+                metaListMetaToAttach = em.getReference(metaListMetaToAttach.getClass(), metaListMetaToAttach.getCodigoMeta());
+                attachedMetaList.add(metaListMetaToAttach);
             }
-            objetivo.setMetaCollection(attachedMetaCollection);
+            objetivo.setMetaList(attachedMetaList);
             em.persist(objetivo);
             if (creadorObjetivo != null) {
-                creadorObjetivo.getObjetivoCollection().add(objetivo);
+                creadorObjetivo.getObjetivoList().add(objetivo);
                 creadorObjetivo = em.merge(creadorObjetivo);
             }
-            for (Indicador indicadorCollectionIndicador : objetivo.getIndicadorCollection()) {
-                Objetivo oldIndicadorObjetivoOfIndicadorCollectionIndicador = indicadorCollectionIndicador.getIndicadorObjetivo();
-                indicadorCollectionIndicador.setIndicadorObjetivo(objetivo);
-                indicadorCollectionIndicador = em.merge(indicadorCollectionIndicador);
-                if (oldIndicadorObjetivoOfIndicadorCollectionIndicador != null) {
-                    oldIndicadorObjetivoOfIndicadorCollectionIndicador.getIndicadorCollection().remove(indicadorCollectionIndicador);
-                    oldIndicadorObjetivoOfIndicadorCollectionIndicador = em.merge(oldIndicadorObjetivoOfIndicadorCollectionIndicador);
+            for (Indicador indicadorListIndicador : objetivo.getIndicadorList()) {
+                Objetivo oldIndicadorObjetivoOfIndicadorListIndicador = indicadorListIndicador.getIndicadorObjetivo();
+                indicadorListIndicador.setIndicadorObjetivo(objetivo);
+                indicadorListIndicador = em.merge(indicadorListIndicador);
+                if (oldIndicadorObjetivoOfIndicadorListIndicador != null) {
+                    oldIndicadorObjetivoOfIndicadorListIndicador.getIndicadorList().remove(indicadorListIndicador);
+                    oldIndicadorObjetivoOfIndicadorListIndicador = em.merge(oldIndicadorObjetivoOfIndicadorListIndicador);
                 }
             }
-            for (Iniciativa iniciativaCollectionIniciativa : objetivo.getIniciativaCollection()) {
-                Objetivo oldIniciativaObjetivoOfIniciativaCollectionIniciativa = iniciativaCollectionIniciativa.getIniciativaObjetivo();
-                iniciativaCollectionIniciativa.setIniciativaObjetivo(objetivo);
-                iniciativaCollectionIniciativa = em.merge(iniciativaCollectionIniciativa);
-                if (oldIniciativaObjetivoOfIniciativaCollectionIniciativa != null) {
-                    oldIniciativaObjetivoOfIniciativaCollectionIniciativa.getIniciativaCollection().remove(iniciativaCollectionIniciativa);
-                    oldIniciativaObjetivoOfIniciativaCollectionIniciativa = em.merge(oldIniciativaObjetivoOfIniciativaCollectionIniciativa);
+            for (Iniciativa iniciativaListIniciativa : objetivo.getIniciativaList()) {
+                Objetivo oldIniciativaObjetivoOfIniciativaListIniciativa = iniciativaListIniciativa.getIniciativaObjetivo();
+                iniciativaListIniciativa.setIniciativaObjetivo(objetivo);
+                iniciativaListIniciativa = em.merge(iniciativaListIniciativa);
+                if (oldIniciativaObjetivoOfIniciativaListIniciativa != null) {
+                    oldIniciativaObjetivoOfIniciativaListIniciativa.getIniciativaList().remove(iniciativaListIniciativa);
+                    oldIniciativaObjetivoOfIniciativaListIniciativa = em.merge(oldIniciativaObjetivoOfIniciativaListIniciativa);
                 }
             }
-            for (Meta metaCollectionMeta : objetivo.getMetaCollection()) {
-                Objetivo oldMetaObjetivoOfMetaCollectionMeta = metaCollectionMeta.getMetaObjetivo();
-                metaCollectionMeta.setMetaObjetivo(objetivo);
-                metaCollectionMeta = em.merge(metaCollectionMeta);
-                if (oldMetaObjetivoOfMetaCollectionMeta != null) {
-                    oldMetaObjetivoOfMetaCollectionMeta.getMetaCollection().remove(metaCollectionMeta);
-                    oldMetaObjetivoOfMetaCollectionMeta = em.merge(oldMetaObjetivoOfMetaCollectionMeta);
+            for (Meta metaListMeta : objetivo.getMetaList()) {
+                Objetivo oldMetaObjetivoOfMetaListMeta = metaListMeta.getMetaObjetivo();
+                metaListMeta.setMetaObjetivo(objetivo);
+                metaListMeta = em.merge(metaListMeta);
+                if (oldMetaObjetivoOfMetaListMeta != null) {
+                    oldMetaObjetivoOfMetaListMeta.getMetaList().remove(metaListMeta);
+                    oldMetaObjetivoOfMetaListMeta = em.merge(oldMetaObjetivoOfMetaListMeta);
                 }
             }
             em.getTransaction().commit();
@@ -130,35 +130,35 @@ public class ObjetivoJpaController implements Serializable {
             Objetivo persistentObjetivo = em.find(Objetivo.class, objetivo.getCodigoObjetivo());
             Usuario creadorObjetivoOld = persistentObjetivo.getCreadorObjetivo();
             Usuario creadorObjetivoNew = objetivo.getCreadorObjetivo();
-            Collection<Indicador> indicadorCollectionOld = persistentObjetivo.getIndicadorCollection();
-            Collection<Indicador> indicadorCollectionNew = objetivo.getIndicadorCollection();
-            Collection<Iniciativa> iniciativaCollectionOld = persistentObjetivo.getIniciativaCollection();
-            Collection<Iniciativa> iniciativaCollectionNew = objetivo.getIniciativaCollection();
-            Collection<Meta> metaCollectionOld = persistentObjetivo.getMetaCollection();
-            Collection<Meta> metaCollectionNew = objetivo.getMetaCollection();
+            List<Indicador> indicadorListOld = persistentObjetivo.getIndicadorList();
+            List<Indicador> indicadorListNew = objetivo.getIndicadorList();
+            List<Iniciativa> iniciativaListOld = persistentObjetivo.getIniciativaList();
+            List<Iniciativa> iniciativaListNew = objetivo.getIniciativaList();
+            List<Meta> metaListOld = persistentObjetivo.getMetaList();
+            List<Meta> metaListNew = objetivo.getMetaList();
             List<String> illegalOrphanMessages = null;
-            for (Indicador indicadorCollectionOldIndicador : indicadorCollectionOld) {
-                if (!indicadorCollectionNew.contains(indicadorCollectionOldIndicador)) {
+            for (Indicador indicadorListOldIndicador : indicadorListOld) {
+                if (!indicadorListNew.contains(indicadorListOldIndicador)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Indicador " + indicadorCollectionOldIndicador + " since its indicadorObjetivo field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Indicador " + indicadorListOldIndicador + " since its indicadorObjetivo field is not nullable.");
                 }
             }
-            for (Iniciativa iniciativaCollectionOldIniciativa : iniciativaCollectionOld) {
-                if (!iniciativaCollectionNew.contains(iniciativaCollectionOldIniciativa)) {
+            for (Iniciativa iniciativaListOldIniciativa : iniciativaListOld) {
+                if (!iniciativaListNew.contains(iniciativaListOldIniciativa)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Iniciativa " + iniciativaCollectionOldIniciativa + " since its iniciativaObjetivo field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Iniciativa " + iniciativaListOldIniciativa + " since its iniciativaObjetivo field is not nullable.");
                 }
             }
-            for (Meta metaCollectionOldMeta : metaCollectionOld) {
-                if (!metaCollectionNew.contains(metaCollectionOldMeta)) {
+            for (Meta metaListOldMeta : metaListOld) {
+                if (!metaListNew.contains(metaListOldMeta)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Meta " + metaCollectionOldMeta + " since its metaObjetivo field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Meta " + metaListOldMeta + " since its metaObjetivo field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
@@ -168,66 +168,66 @@ public class ObjetivoJpaController implements Serializable {
                 creadorObjetivoNew = em.getReference(creadorObjetivoNew.getClass(), creadorObjetivoNew.getCedula());
                 objetivo.setCreadorObjetivo(creadorObjetivoNew);
             }
-            Collection<Indicador> attachedIndicadorCollectionNew = new ArrayList<Indicador>();
-            for (Indicador indicadorCollectionNewIndicadorToAttach : indicadorCollectionNew) {
-                indicadorCollectionNewIndicadorToAttach = em.getReference(indicadorCollectionNewIndicadorToAttach.getClass(), indicadorCollectionNewIndicadorToAttach.getCodigoIndicador());
-                attachedIndicadorCollectionNew.add(indicadorCollectionNewIndicadorToAttach);
+            List<Indicador> attachedIndicadorListNew = new ArrayList<Indicador>();
+            for (Indicador indicadorListNewIndicadorToAttach : indicadorListNew) {
+                indicadorListNewIndicadorToAttach = em.getReference(indicadorListNewIndicadorToAttach.getClass(), indicadorListNewIndicadorToAttach.getCodigoIndicador());
+                attachedIndicadorListNew.add(indicadorListNewIndicadorToAttach);
             }
-            indicadorCollectionNew = attachedIndicadorCollectionNew;
-            objetivo.setIndicadorCollection(indicadorCollectionNew);
-            Collection<Iniciativa> attachedIniciativaCollectionNew = new ArrayList<Iniciativa>();
-            for (Iniciativa iniciativaCollectionNewIniciativaToAttach : iniciativaCollectionNew) {
-                iniciativaCollectionNewIniciativaToAttach = em.getReference(iniciativaCollectionNewIniciativaToAttach.getClass(), iniciativaCollectionNewIniciativaToAttach.getCodigoIniciativa());
-                attachedIniciativaCollectionNew.add(iniciativaCollectionNewIniciativaToAttach);
+            indicadorListNew = attachedIndicadorListNew;
+            objetivo.setIndicadorList(indicadorListNew);
+            List<Iniciativa> attachedIniciativaListNew = new ArrayList<Iniciativa>();
+            for (Iniciativa iniciativaListNewIniciativaToAttach : iniciativaListNew) {
+                iniciativaListNewIniciativaToAttach = em.getReference(iniciativaListNewIniciativaToAttach.getClass(), iniciativaListNewIniciativaToAttach.getCodigoIniciativa());
+                attachedIniciativaListNew.add(iniciativaListNewIniciativaToAttach);
             }
-            iniciativaCollectionNew = attachedIniciativaCollectionNew;
-            objetivo.setIniciativaCollection(iniciativaCollectionNew);
-            Collection<Meta> attachedMetaCollectionNew = new ArrayList<Meta>();
-            for (Meta metaCollectionNewMetaToAttach : metaCollectionNew) {
-                metaCollectionNewMetaToAttach = em.getReference(metaCollectionNewMetaToAttach.getClass(), metaCollectionNewMetaToAttach.getCodigoMeta());
-                attachedMetaCollectionNew.add(metaCollectionNewMetaToAttach);
+            iniciativaListNew = attachedIniciativaListNew;
+            objetivo.setIniciativaList(iniciativaListNew);
+            List<Meta> attachedMetaListNew = new ArrayList<Meta>();
+            for (Meta metaListNewMetaToAttach : metaListNew) {
+                metaListNewMetaToAttach = em.getReference(metaListNewMetaToAttach.getClass(), metaListNewMetaToAttach.getCodigoMeta());
+                attachedMetaListNew.add(metaListNewMetaToAttach);
             }
-            metaCollectionNew = attachedMetaCollectionNew;
-            objetivo.setMetaCollection(metaCollectionNew);
+            metaListNew = attachedMetaListNew;
+            objetivo.setMetaList(metaListNew);
             objetivo = em.merge(objetivo);
             if (creadorObjetivoOld != null && !creadorObjetivoOld.equals(creadorObjetivoNew)) {
-                creadorObjetivoOld.getObjetivoCollection().remove(objetivo);
+                creadorObjetivoOld.getObjetivoList().remove(objetivo);
                 creadorObjetivoOld = em.merge(creadorObjetivoOld);
             }
             if (creadorObjetivoNew != null && !creadorObjetivoNew.equals(creadorObjetivoOld)) {
-                creadorObjetivoNew.getObjetivoCollection().add(objetivo);
+                creadorObjetivoNew.getObjetivoList().add(objetivo);
                 creadorObjetivoNew = em.merge(creadorObjetivoNew);
             }
-            for (Indicador indicadorCollectionNewIndicador : indicadorCollectionNew) {
-                if (!indicadorCollectionOld.contains(indicadorCollectionNewIndicador)) {
-                    Objetivo oldIndicadorObjetivoOfIndicadorCollectionNewIndicador = indicadorCollectionNewIndicador.getIndicadorObjetivo();
-                    indicadorCollectionNewIndicador.setIndicadorObjetivo(objetivo);
-                    indicadorCollectionNewIndicador = em.merge(indicadorCollectionNewIndicador);
-                    if (oldIndicadorObjetivoOfIndicadorCollectionNewIndicador != null && !oldIndicadorObjetivoOfIndicadorCollectionNewIndicador.equals(objetivo)) {
-                        oldIndicadorObjetivoOfIndicadorCollectionNewIndicador.getIndicadorCollection().remove(indicadorCollectionNewIndicador);
-                        oldIndicadorObjetivoOfIndicadorCollectionNewIndicador = em.merge(oldIndicadorObjetivoOfIndicadorCollectionNewIndicador);
+            for (Indicador indicadorListNewIndicador : indicadorListNew) {
+                if (!indicadorListOld.contains(indicadorListNewIndicador)) {
+                    Objetivo oldIndicadorObjetivoOfIndicadorListNewIndicador = indicadorListNewIndicador.getIndicadorObjetivo();
+                    indicadorListNewIndicador.setIndicadorObjetivo(objetivo);
+                    indicadorListNewIndicador = em.merge(indicadorListNewIndicador);
+                    if (oldIndicadorObjetivoOfIndicadorListNewIndicador != null && !oldIndicadorObjetivoOfIndicadorListNewIndicador.equals(objetivo)) {
+                        oldIndicadorObjetivoOfIndicadorListNewIndicador.getIndicadorList().remove(indicadorListNewIndicador);
+                        oldIndicadorObjetivoOfIndicadorListNewIndicador = em.merge(oldIndicadorObjetivoOfIndicadorListNewIndicador);
                     }
                 }
             }
-            for (Iniciativa iniciativaCollectionNewIniciativa : iniciativaCollectionNew) {
-                if (!iniciativaCollectionOld.contains(iniciativaCollectionNewIniciativa)) {
-                    Objetivo oldIniciativaObjetivoOfIniciativaCollectionNewIniciativa = iniciativaCollectionNewIniciativa.getIniciativaObjetivo();
-                    iniciativaCollectionNewIniciativa.setIniciativaObjetivo(objetivo);
-                    iniciativaCollectionNewIniciativa = em.merge(iniciativaCollectionNewIniciativa);
-                    if (oldIniciativaObjetivoOfIniciativaCollectionNewIniciativa != null && !oldIniciativaObjetivoOfIniciativaCollectionNewIniciativa.equals(objetivo)) {
-                        oldIniciativaObjetivoOfIniciativaCollectionNewIniciativa.getIniciativaCollection().remove(iniciativaCollectionNewIniciativa);
-                        oldIniciativaObjetivoOfIniciativaCollectionNewIniciativa = em.merge(oldIniciativaObjetivoOfIniciativaCollectionNewIniciativa);
+            for (Iniciativa iniciativaListNewIniciativa : iniciativaListNew) {
+                if (!iniciativaListOld.contains(iniciativaListNewIniciativa)) {
+                    Objetivo oldIniciativaObjetivoOfIniciativaListNewIniciativa = iniciativaListNewIniciativa.getIniciativaObjetivo();
+                    iniciativaListNewIniciativa.setIniciativaObjetivo(objetivo);
+                    iniciativaListNewIniciativa = em.merge(iniciativaListNewIniciativa);
+                    if (oldIniciativaObjetivoOfIniciativaListNewIniciativa != null && !oldIniciativaObjetivoOfIniciativaListNewIniciativa.equals(objetivo)) {
+                        oldIniciativaObjetivoOfIniciativaListNewIniciativa.getIniciativaList().remove(iniciativaListNewIniciativa);
+                        oldIniciativaObjetivoOfIniciativaListNewIniciativa = em.merge(oldIniciativaObjetivoOfIniciativaListNewIniciativa);
                     }
                 }
             }
-            for (Meta metaCollectionNewMeta : metaCollectionNew) {
-                if (!metaCollectionOld.contains(metaCollectionNewMeta)) {
-                    Objetivo oldMetaObjetivoOfMetaCollectionNewMeta = metaCollectionNewMeta.getMetaObjetivo();
-                    metaCollectionNewMeta.setMetaObjetivo(objetivo);
-                    metaCollectionNewMeta = em.merge(metaCollectionNewMeta);
-                    if (oldMetaObjetivoOfMetaCollectionNewMeta != null && !oldMetaObjetivoOfMetaCollectionNewMeta.equals(objetivo)) {
-                        oldMetaObjetivoOfMetaCollectionNewMeta.getMetaCollection().remove(metaCollectionNewMeta);
-                        oldMetaObjetivoOfMetaCollectionNewMeta = em.merge(oldMetaObjetivoOfMetaCollectionNewMeta);
+            for (Meta metaListNewMeta : metaListNew) {
+                if (!metaListOld.contains(metaListNewMeta)) {
+                    Objetivo oldMetaObjetivoOfMetaListNewMeta = metaListNewMeta.getMetaObjetivo();
+                    metaListNewMeta.setMetaObjetivo(objetivo);
+                    metaListNewMeta = em.merge(metaListNewMeta);
+                    if (oldMetaObjetivoOfMetaListNewMeta != null && !oldMetaObjetivoOfMetaListNewMeta.equals(objetivo)) {
+                        oldMetaObjetivoOfMetaListNewMeta.getMetaList().remove(metaListNewMeta);
+                        oldMetaObjetivoOfMetaListNewMeta = em.merge(oldMetaObjetivoOfMetaListNewMeta);
                     }
                 }
             }
@@ -261,33 +261,33 @@ public class ObjetivoJpaController implements Serializable {
                 throw new NonexistentEntityException("The objetivo with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            Collection<Indicador> indicadorCollectionOrphanCheck = objetivo.getIndicadorCollection();
-            for (Indicador indicadorCollectionOrphanCheckIndicador : indicadorCollectionOrphanCheck) {
+            List<Indicador> indicadorListOrphanCheck = objetivo.getIndicadorList();
+            for (Indicador indicadorListOrphanCheckIndicador : indicadorListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Objetivo (" + objetivo + ") cannot be destroyed since the Indicador " + indicadorCollectionOrphanCheckIndicador + " in its indicadorCollection field has a non-nullable indicadorObjetivo field.");
+                illegalOrphanMessages.add("This Objetivo (" + objetivo + ") cannot be destroyed since the Indicador " + indicadorListOrphanCheckIndicador + " in its indicadorList field has a non-nullable indicadorObjetivo field.");
             }
-            Collection<Iniciativa> iniciativaCollectionOrphanCheck = objetivo.getIniciativaCollection();
-            for (Iniciativa iniciativaCollectionOrphanCheckIniciativa : iniciativaCollectionOrphanCheck) {
+            List<Iniciativa> iniciativaListOrphanCheck = objetivo.getIniciativaList();
+            for (Iniciativa iniciativaListOrphanCheckIniciativa : iniciativaListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Objetivo (" + objetivo + ") cannot be destroyed since the Iniciativa " + iniciativaCollectionOrphanCheckIniciativa + " in its iniciativaCollection field has a non-nullable iniciativaObjetivo field.");
+                illegalOrphanMessages.add("This Objetivo (" + objetivo + ") cannot be destroyed since the Iniciativa " + iniciativaListOrphanCheckIniciativa + " in its iniciativaList field has a non-nullable iniciativaObjetivo field.");
             }
-            Collection<Meta> metaCollectionOrphanCheck = objetivo.getMetaCollection();
-            for (Meta metaCollectionOrphanCheckMeta : metaCollectionOrphanCheck) {
+            List<Meta> metaListOrphanCheck = objetivo.getMetaList();
+            for (Meta metaListOrphanCheckMeta : metaListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Objetivo (" + objetivo + ") cannot be destroyed since the Meta " + metaCollectionOrphanCheckMeta + " in its metaCollection field has a non-nullable metaObjetivo field.");
+                illegalOrphanMessages.add("This Objetivo (" + objetivo + ") cannot be destroyed since the Meta " + metaListOrphanCheckMeta + " in its metaList field has a non-nullable metaObjetivo field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
             Usuario creadorObjetivo = objetivo.getCreadorObjetivo();
             if (creadorObjetivo != null) {
-                creadorObjetivo.getObjetivoCollection().remove(objetivo);
+                creadorObjetivo.getObjetivoList().remove(objetivo);
                 creadorObjetivo = em.merge(creadorObjetivo);
             }
             em.remove(objetivo);

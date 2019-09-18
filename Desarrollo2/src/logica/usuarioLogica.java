@@ -53,6 +53,10 @@ public class usuarioLogica {
             throw new Exception("Usuario ya registrado en la base de datos");
         }
     }
+    
+    public void editarUsuario(Usuario u) throws NonexistentEntityException, Exception{
+        usuario.edit(u);
+    }
 
      public static void main(String args[]) throws Exception {
         List<Usuario> usuarios;

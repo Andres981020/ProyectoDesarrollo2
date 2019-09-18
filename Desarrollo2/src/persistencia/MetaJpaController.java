@@ -45,7 +45,7 @@ public class MetaJpaController implements Serializable {
             }
             em.persist(meta);
             if (metaObjetivo != null) {
-                metaObjetivo.getMetaCollection().add(meta);
+                metaObjetivo.getMetaList().add(meta);
                 metaObjetivo = em.merge(metaObjetivo);
             }
             em.getTransaction().commit();
@@ -70,11 +70,11 @@ public class MetaJpaController implements Serializable {
             }
             meta = em.merge(meta);
             if (metaObjetivoOld != null && !metaObjetivoOld.equals(metaObjetivoNew)) {
-                metaObjetivoOld.getMetaCollection().remove(meta);
+                metaObjetivoOld.getMetaList().remove(meta);
                 metaObjetivoOld = em.merge(metaObjetivoOld);
             }
             if (metaObjetivoNew != null && !metaObjetivoNew.equals(metaObjetivoOld)) {
-                metaObjetivoNew.getMetaCollection().add(meta);
+                metaObjetivoNew.getMetaList().add(meta);
                 metaObjetivoNew = em.merge(metaObjetivoNew);
             }
             em.getTransaction().commit();
@@ -108,7 +108,7 @@ public class MetaJpaController implements Serializable {
             }
             Objetivo metaObjetivo = meta.getMetaObjetivo();
             if (metaObjetivo != null) {
-                metaObjetivo.getMetaCollection().remove(meta);
+                metaObjetivo.getMetaList().remove(meta);
                 metaObjetivo = em.merge(metaObjetivo);
             }
             em.remove(meta);

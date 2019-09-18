@@ -4,11 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Usuario/Documents/GitHub/ProyectoDesarrollo2/Desarrollo2/src/logica/usuarioLogica.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/ProyectoDesarrollo2/Desarrollo2/src/logica/objetivoLogica.java</file>
             <file>file:/C:/Users/Usuario/Documents/GitHub/ProyectoDesarrollo2/Desarrollo2/src/vista/principalCliente.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/ProyectoDesarrollo2/Desarrollo2/src/vista/defObjetivo.java</file>
             <file>file:/C:/Users/Usuario/Documents/GitHub/ProyectoDesarrollo2/Desarrollo2/src/vista/operacionesUsuarios.java</file>
-            <file>file:/C:/Users/Usuario/Documents/GitHub/ProyectoDesarrollo2/Desarrollo2/src/vista/definirObjetivo.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/ProyectoDesarrollo2/Desarrollo2/src/logica/metaLogica.java</file>
             <file>file:/C:/Users/Usuario/Documents/GitHub/ProyectoDesarrollo2/Desarrollo2/src/vista/login.java</file>
-            <file>file:/C:/Users/Usuario/Documents/GitHub/ProyectoDesarrollo2/Desarrollo2/src/modelo/Meta.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/ProyectoDesarrollo2/Desarrollo2/src/logica/iniciativaLogica.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/ProyectoDesarrollo2/Desarrollo2/src/logica/indicadorLogica.java</file>
         </group>
     </open-files>
 </project-private>

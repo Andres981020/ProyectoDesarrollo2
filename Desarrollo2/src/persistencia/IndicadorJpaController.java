@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -45,7 +46,7 @@ public class IndicadorJpaController implements Serializable {
             }
             em.persist(indicador);
             if (indicadorObjetivo != null) {
-                indicadorObjetivo.getIndicadorCollection().add(indicador);
+                indicadorObjetivo.getIndicadorList().add(indicador);
                 indicadorObjetivo = em.merge(indicadorObjetivo);
             }
             em.getTransaction().commit();
@@ -70,11 +71,11 @@ public class IndicadorJpaController implements Serializable {
             }
             indicador = em.merge(indicador);
             if (indicadorObjetivoOld != null && !indicadorObjetivoOld.equals(indicadorObjetivoNew)) {
-                indicadorObjetivoOld.getIndicadorCollection().remove(indicador);
+                indicadorObjetivoOld.getIndicadorList().remove(indicador);
                 indicadorObjetivoOld = em.merge(indicadorObjetivoOld);
             }
             if (indicadorObjetivoNew != null && !indicadorObjetivoNew.equals(indicadorObjetivoOld)) {
-                indicadorObjetivoNew.getIndicadorCollection().add(indicador);
+                indicadorObjetivoNew.getIndicadorList().add(indicador);
                 indicadorObjetivoNew = em.merge(indicadorObjetivoNew);
             }
             em.getTransaction().commit();
@@ -108,7 +109,7 @@ public class IndicadorJpaController implements Serializable {
             }
             Objetivo indicadorObjetivo = indicador.getIndicadorObjetivo();
             if (indicadorObjetivo != null) {
-                indicadorObjetivo.getIndicadorCollection().remove(indicador);
+                indicadorObjetivo.getIndicadorList().remove(indicador);
                 indicadorObjetivo = em.merge(indicadorObjetivo);
             }
             em.remove(indicador);
@@ -163,6 +164,19 @@ public class IndicadorJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    
+    public Indicador adquirirIndicador(String descripcion){
+        String consulta = "select i from Indicador i "
+                + "where i.getDescripcionIndicador()= '"+descripcion+"'";
+        
+        try{
+        EntityManager em = getEntityManager();
+        Query query = em.createQuery(consulta);
+        return (Indicador) query.getSingleResult();
+        }catch(NoResultException e){
+            return null;
         }
     }
     

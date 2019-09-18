@@ -7,6 +7,7 @@ package logica;
 
 import modelo.Iniciativa;
 import persistencia.IniciativaJpaController;
+import persistencia.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -28,6 +29,10 @@ public class iniciativaLogica {
         }else{
             throw new Exception("Iniciativa ya registrado en la base de datos");
         }
+    }
+    
+    public void eliminarIniciativa(int i) throws NonexistentEntityException{
+        iniciativa.destroy(i);
     }
     
 }

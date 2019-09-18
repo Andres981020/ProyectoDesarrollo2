@@ -45,7 +45,7 @@ public class IniciativaJpaController implements Serializable {
             }
             em.persist(iniciativa);
             if (iniciativaObjetivo != null) {
-                iniciativaObjetivo.getIniciativaCollection().add(iniciativa);
+                iniciativaObjetivo.getIniciativaList().add(iniciativa);
                 iniciativaObjetivo = em.merge(iniciativaObjetivo);
             }
             em.getTransaction().commit();
@@ -70,11 +70,11 @@ public class IniciativaJpaController implements Serializable {
             }
             iniciativa = em.merge(iniciativa);
             if (iniciativaObjetivoOld != null && !iniciativaObjetivoOld.equals(iniciativaObjetivoNew)) {
-                iniciativaObjetivoOld.getIniciativaCollection().remove(iniciativa);
+                iniciativaObjetivoOld.getIniciativaList().remove(iniciativa);
                 iniciativaObjetivoOld = em.merge(iniciativaObjetivoOld);
             }
             if (iniciativaObjetivoNew != null && !iniciativaObjetivoNew.equals(iniciativaObjetivoOld)) {
-                iniciativaObjetivoNew.getIniciativaCollection().add(iniciativa);
+                iniciativaObjetivoNew.getIniciativaList().add(iniciativa);
                 iniciativaObjetivoNew = em.merge(iniciativaObjetivoNew);
             }
             em.getTransaction().commit();
@@ -108,7 +108,7 @@ public class IniciativaJpaController implements Serializable {
             }
             Objetivo iniciativaObjetivo = iniciativa.getIniciativaObjetivo();
             if (iniciativaObjetivo != null) {
-                iniciativaObjetivo.getIniciativaCollection().remove(iniciativa);
+                iniciativaObjetivo.getIniciativaList().remove(iniciativa);
                 iniciativaObjetivo = em.merge(iniciativaObjetivo);
             }
             em.remove(iniciativa);

@@ -6,7 +6,7 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -62,7 +62,7 @@ public class Usuario implements Serializable {
     @Column(name = "correoElectronico")
     private String correoElectronico;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "creadorObjetivo")
-    private Collection<Objetivo> objetivoCollection;
+    private List<Objetivo> objetivoList;
 
     public Usuario() {
     }
@@ -144,12 +144,12 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Objetivo> getObjetivoCollection() {
-        return objetivoCollection;
+    public List<Objetivo> getObjetivoList() {
+        return objetivoList;
     }
 
-    public void setObjetivoCollection(Collection<Objetivo> objetivoCollection) {
-        this.objetivoCollection = objetivoCollection;
+    public void setObjetivoList(List<Objetivo> objetivoList) {
+        this.objetivoList = objetivoList;
     }
 
     @Override

@@ -5,11 +5,22 @@
  */
 package vista;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import logica.indicadorLogica;
+import logica.iniciativaLogica;
+import logica.metaLogica;
 import logica.objetivoLogica;
 import logica.usuarioLogica;
+import modelo.Indicador;
+import modelo.Iniciativa;
+import modelo.Meta;
 import modelo.Objetivo;
+import persistencia.exceptions.IllegalOrphanException;
+import persistencia.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -18,6 +29,11 @@ import modelo.Objetivo;
 public class principalCliente extends javax.swing.JFrame {
 
     objetivoLogica objetivoL = new objetivoLogica();
+    iniciativaLogica iniciativaL = new iniciativaLogica();
+    indicadorLogica indicadorL = new indicadorLogica();
+    metaLogica metaL = new metaLogica();
+    
+    int filaSeleccionada = 0;
 
     public principalCliente() {
         super("Interfaz principal");
@@ -50,23 +66,38 @@ public class principalCliente extends javax.swing.JFrame {
         String[] datos4 = new String[2];
         
         for(Objetivo o: objetivosC){
+            List<Indicador> indicadores;
+            indicadores = o.getIndicadorList();
             datos1[0] = o.getDescripcionObjetivo();
-            datos1[1] = o.getIndicadorCollection().toString();
+            for(Indicador i: indicadores){
+                datos1[1] = i.getDescripcionIndicador();
+                System.out.println(i.getDescripcionIndicador());
+                tabla1.addRow(datos1);
+            }
+            //tabla1.addRow(datos1);
         }
         
         for(Objetivo o: objetivosF){
+            List<Indicador> indicadores;
+            indicadores = o.getIndicadorList();
             datos2[0] = o.getDescripcionObjetivo();
-            datos2[1] = o.getIndicadorCollection().toString();
+            for(Indicador i: indicadores){
+                datos2[1] = i.getDescripcionIndicador();
+                tabla1.addRow(datos2);
+            }
+            //datos1[1] = o.getIndicadorList().toString();
+            
+            //tabla1.addRow(datos1);
         }
         
         for(Objetivo o: objetivosCA){
             datos3[0] = o.getDescripcionObjetivo();
-            datos3[1] = o.getIndicadorCollection().toString();
+            datos3[1] = o.getIndicadorList().toString();
         }
         
         for(Objetivo o: objetivosP){
             datos4[0] = o.getDescripcionObjetivo();
-            datos4[1] = o.getIndicadorCollection().toString();
+            datos4[1] = o.getIndicadorList().toString();
         }
         
         perspectivaC.setModel(tabla1);
@@ -99,6 +130,7 @@ public class principalCliente extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         perspectivaPI = new javax.swing.JTable();
         agregarO = new javax.swing.JButton();
+        eliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -119,6 +151,11 @@ public class principalCliente extends javax.swing.JFrame {
 
             }
         ));
+        perspectivaC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                perspectivaCMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(perspectivaC);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 190));
@@ -175,7 +212,16 @@ public class principalCliente extends javax.swing.JFrame {
                 agregarOActionPerformed(evt);
             }
         });
-        getContentPane().add(agregarO, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, -1, -1));
+        getContentPane().add(agregarO, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, -1, -1));
+
+        eliminar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        eliminar.setText("Eliminar objetivo");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 170, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -185,6 +231,48 @@ public class principalCliente extends javax.swing.JFrame {
         definir.setVisible(true);
         dispose();
     }//GEN-LAST:event_agregarOActionPerformed
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        try {
+            Objetivo obj = new Objetivo();
+            List<Objetivo> objetivos = objetivoL.objetivosPerspectivaCliente();
+            obj = objetivos.get(filaSeleccionada);
+            List<Indicador> indicadores = obj.getIndicadorList();
+            List<Iniciativa> iniciativas = obj.getIniciativaList();
+            List<Meta> metas = obj.getMetaList();
+            
+            for(Iniciativa i: iniciativas){
+                try {
+                    iniciativaL.eliminarIniciativa(i.getCodigoIniciativa());
+                } catch (NonexistentEntityException ex) {
+                    Logger.getLogger(principalCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            for(Indicador in: indicadores){
+                try {
+                    indicadorL.eliminarIndicador(in.getCodigoIndicador());
+                } catch (NonexistentEntityException ex) {
+                    Logger.getLogger(principalCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            for(Meta m: metas){
+                try {
+                    metaL.eliminarMeta(m.getCodigoMeta());
+                } catch (NonexistentEntityException ex) {
+                    Logger.getLogger(principalCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            objetivoL.eliminarObjetivo(obj.getCodigoObjetivo());
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(principalCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_eliminarActionPerformed
+
+    private void perspectivaCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_perspectivaCMouseClicked
+        filaSeleccionada = perspectivaC.getSelectedRow();
+    }//GEN-LAST:event_perspectivaCMouseClicked
 
     /**
      * @param args the command line arguments
@@ -223,6 +311,7 @@ public class principalCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarO;
+    private javax.swing.JButton eliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

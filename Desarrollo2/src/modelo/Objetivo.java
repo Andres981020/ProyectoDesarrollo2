@@ -6,8 +6,8 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -53,14 +53,14 @@ public class Objetivo implements Serializable {
     @Column(name = "perspectiva")
     private String perspectiva;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "indicadorObjetivo")
-    private Collection<Indicador> indicadorCollection;
+    private List<Indicador> indicadorList;
     @JoinColumn(name = "creador_objetivo", referencedColumnName = "cedula")
     @ManyToOne(optional = false)
     private Usuario creadorObjetivo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iniciativaObjetivo")
-    private Collection<Iniciativa> iniciativaCollection;
+    private List<Iniciativa> iniciativaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "metaObjetivo")
-    private Collection<Meta> metaCollection;
+    private List<Meta> metaList;
 
     public Objetivo() {
     }
@@ -107,12 +107,12 @@ public class Objetivo implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Indicador> getIndicadorCollection() {
-        return indicadorCollection;
+    public List<Indicador> getIndicadorList() {
+        return indicadorList;
     }
 
-    public void setIndicadorCollection(Collection<Indicador> indicadorCollection) {
-        this.indicadorCollection = indicadorCollection;
+    public void setIndicadorList(List<Indicador> indicadorList) {
+        this.indicadorList = indicadorList;
     }
 
     public Usuario getCreadorObjetivo() {
@@ -124,21 +124,21 @@ public class Objetivo implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Iniciativa> getIniciativaCollection() {
-        return iniciativaCollection;
+    public List<Iniciativa> getIniciativaList() {
+        return iniciativaList;
     }
 
-    public void setIniciativaCollection(Collection<Iniciativa> iniciativaCollection) {
-        this.iniciativaCollection = iniciativaCollection;
+    public void setIniciativaList(List<Iniciativa> iniciativaList) {
+        this.iniciativaList = iniciativaList;
     }
 
     @XmlTransient
-    public Collection<Meta> getMetaCollection() {
-        return metaCollection;
+    public List<Meta> getMetaList() {
+        return metaList;
     }
 
-    public void setMetaCollection(Collection<Meta> metaCollection) {
-        this.metaCollection = metaCollection;
+    public void setMetaList(List<Meta> metaList) {
+        this.metaList = metaList;
     }
 
     @Override
