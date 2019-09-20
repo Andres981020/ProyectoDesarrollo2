@@ -5,7 +5,9 @@
  */
 package logica;
 
+import java.util.List;
 import modelo.Meta;
+import modelo.Objetivo;
 import persistencia.MetaJpaController;
 import persistencia.exceptions.NonexistentEntityException;
 
@@ -33,5 +35,23 @@ public class metaLogica {
     
     public void eliminarMeta(int m) throws NonexistentEntityException{
         meta.destroy(m);
+    }
+    
+    public Meta buscarMetaDescripcion(String descripcion, List<Objetivo>objetivos){
+        Meta met = new Meta(); 
+        List<Meta> metas;
+        for(Objetivo o: objetivos){
+            metas = o.getMetaList();
+            for(Meta m: metas){
+                if(m.getDescripcionMeta().equals(descripcion)){
+                    met = m;
+                }
+            }
+        }
+        return met;
+    }
+    
+    public void editarMeta(Meta m) throws Exception{
+        meta.edit(m);
     }
 }

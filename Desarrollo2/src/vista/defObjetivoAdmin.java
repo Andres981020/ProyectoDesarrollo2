@@ -24,7 +24,7 @@ import modelo.Usuario;
  *
  * @author Usuario
  */
-public class defObjetivo extends javax.swing.JFrame {
+public class defObjetivoAdmin extends javax.swing.JFrame {
     
     usuarioLogica usuario = new usuarioLogica();
     objetivoLogica objetivo = new objetivoLogica();
@@ -35,7 +35,7 @@ public class defObjetivo extends javax.swing.JFrame {
     /**
      * Creates new form defObjetivo
      */
-    public defObjetivo() {
+    public defObjetivoAdmin() {
         initComponents();
     }
 
@@ -65,8 +65,10 @@ public class defObjetivo extends javax.swing.JFrame {
         metaO = new javax.swing.JTextArea();
         crearO = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        codigoO = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        codigoO = new javax.swing.JTextField();
+        perspectivaO = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -92,41 +94,41 @@ public class defObjetivo extends javax.swing.JFrame {
         iniciativaO.setVerifyInputWhenFocusTarget(false);
         jScrollPane3.setViewportView(iniciativaO);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, 260, 160));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, 260, 160));
 
         descripcionO.setColumns(20);
         descripcionO.setRows(5);
         jScrollPane2.setViewportView(descripcionO);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 260, 160));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 260, 160));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setText("Descripción objetivo");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 200, 41));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 200, 41));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel5.setText("                    Iniciativa");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, 200, 41));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 200, 41));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Meta");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, 60, 41));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 460, 60, 41));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel6.setText("Indicador");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 100, 41));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, 100, 41));
 
         indicadorO.setColumns(20);
         indicadorO.setRows(5);
         jScrollPane4.setViewportView(indicadorO);
 
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 260, 160));
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 260, 160));
 
         metaO.setColumns(20);
         metaO.setRows(5);
         jScrollPane1.setViewportView(metaO);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 460, 260, 160));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 500, 260, 160));
 
         crearO.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         crearO.setText("Crear Objetivo");
@@ -135,11 +137,18 @@ public class defObjetivo extends javax.swing.JFrame {
                 crearOActionPerformed(evt);
             }
         });
-        getContentPane().add(crearO, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 640, -1, 40));
+        getContentPane().add(crearO, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 680, -1, 40));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel7.setText("   Codigo de objetivo:");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 200, 40));
+        jLabel7.setText("               Perspectiva:");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 200, 40));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/fondoP.jpg"))); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 620, 700));
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel9.setText("   Codigo de objetivo:");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 200, 40));
 
         codigoO.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         codigoO.addActionListener(new java.awt.event.ActionListener() {
@@ -149,8 +158,9 @@ public class defObjetivo extends javax.swing.JFrame {
         });
         getContentPane().add(codigoO, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 310, 40));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/fondoP.jpg"))); // NOI18N
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 700));
+        perspectivaO.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        perspectivaO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Perspectiva cliente", "Perspectiva financiera", "Perspectiva crecimiento y aprendizaje", "Perspectiva procesos internos" }));
+        getContentPane().add(perspectivaO, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 310, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -174,7 +184,7 @@ public class defObjetivo extends javax.swing.JFrame {
             obj.setFecha(objDate);
             obj.setDescripcionObjetivo(descripcionO.getText());
             obj.setCreadorObjetivo(u);
-            obj.setPerspectiva(usuario.encontrar(idUsuario.getText()).getTipoUsuario());
+            obj.setPerspectiva(perspectivaO.getSelectedItem().toString());
             
             objetivo.crearObjetivo(obj);
             
@@ -201,30 +211,12 @@ public class defObjetivo extends javax.swing.JFrame {
             meta.crearMeta(met);
             
         } catch (Exception ex) {
-            Logger.getLogger(defObjetivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(defObjetivoAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
         JOptionPane.showMessageDialog(this, "Creacion de objetivo satisfactoria"); 
-        Usuario u = usuario.encontrar(idUsuario.getText());
-        if(u.getTipoUsuario().equals("Perspectiva cliente")){
-            principalCliente objetivos = new principalCliente();
-            objetivos.setVisible(true);
-            dispose(); 
-        }
-        else if(u.getTipoUsuario().equals("Perspectiva financiera")){
-        principalFinanciera objetivos = new principalFinanciera();
+        prinUsuario objetivos = new prinUsuario();
         objetivos.setVisible(true);
         dispose();
-        }
-        else if(u.getTipoUsuario().equals("Perspectiva crecimiento y aprendizaje")){
-            principalCrecimiento objetivos = new principalCrecimiento();
-            objetivos.setVisible(true);
-            dispose();
-        }
-        else if(u.getTipoUsuario().equals("Perspectiva procesos internos")){
-            principalProcesos objetivos = new principalProcesos();
-            objetivos.setVisible(true);
-            dispose();
-        }
     }//GEN-LAST:event_crearOActionPerformed
 
     private void codigoOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoOActionPerformed
@@ -248,20 +240,21 @@ public class defObjetivo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(defObjetivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(defObjetivoAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(defObjetivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(defObjetivoAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(defObjetivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(defObjetivoAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(defObjetivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(defObjetivoAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new defObjetivo().setVisible(true);
+                new defObjetivoAdmin().setVisible(true);
             }
         });
     }
@@ -281,10 +274,12 @@ public class defObjetivo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea metaO;
+    private javax.swing.JComboBox<String> perspectivaO;
     // End of variables declaration//GEN-END:variables
 }

@@ -46,8 +46,6 @@ public class usuario extends javax.swing.JFrame {
         direccion = new javax.swing.JTextField();
         correo = new javax.swing.JTextField();
         agregar = new javax.swing.JButton();
-        modificar = new javax.swing.JButton();
-        eliminar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         perspectivas = new javax.swing.JComboBox<>();
@@ -86,7 +84,7 @@ public class usuario extends javax.swing.JFrame {
         jLabel7.setText("Inserte correo:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 510, 210, 40));
 
-        nombres.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        nombres.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         nombres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombresActionPerformed(evt);
@@ -141,15 +139,7 @@ public class usuario extends javax.swing.JFrame {
                 agregarActionPerformed(evt);
             }
         });
-        getContentPane().add(agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 570, -1, -1));
-
-        modificar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        modificar.setText("Modificar");
-        getContentPane().add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 570, -1, -1));
-
-        eliminar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        eliminar.setText("Eliminar");
-        getContentPane().add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 570, -1, -1));
+        getContentPane().add(agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 570, -1, -1));
 
         jButton4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jButton4.setText("Atras");
@@ -172,6 +162,8 @@ public class usuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(perspectivas, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 330, 290, 40));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/fondoP.jpg"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, 0, 690, 630));
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -225,24 +217,30 @@ public class usuario extends javax.swing.JFrame {
         usuarioLogica usuarioL = new usuarioLogica();
         Usuario us = new Usuario();
         
-        try{
-            us.setCedula(cedula.getText());
-            us.setNombres(nombres.getText());
-            us.setApellidos(apellidos.getText());
-            us.setTipoUsuario(perspectivas.getSelectedItem().toString());
-            us.setClave(clave.getText());
-            us.setDireccion(direccion.getText());
-            us.setTelefono(telefono.getText());
-            us.setCorreoElectronico(correo.getText());
-            
-            usuarioL.crearUsuario(us);
-            
-            JOptionPane.showMessageDialog(this, "Creacion de usuario satisfactoria");
-            
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Creacion de usuario no satisfactoria");
+        if(cedula.getText().equals("") || nombres.getText().equals("") || apellidos.getText().equals("")
+                || clave.getText().equals("") || direccion.getText().equals("") || telefono.getText().equals("")
+                || correo.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Por favor llene todos los campos de usuario");
         }
-        
+        else{
+            try{
+                us.setCedula(cedula.getText());
+                us.setNombres(nombres.getText());
+                us.setApellidos(apellidos.getText());
+                us.setTipoUsuario(perspectivas.getSelectedItem().toString());
+                us.setClave(clave.getText());
+                us.setDireccion(direccion.getText());
+                us.setTelefono(telefono.getText());
+                us.setCorreoElectronico(correo.getText());
+            
+                usuarioL.crearUsuario(us);
+            
+                JOptionPane.showMessageDialog(this, "Creacion de usuario satisfactoria");
+            
+            }catch(Exception e){
+               JOptionPane.showMessageDialog(this, "Creacion de usuario no satisfactoria");
+            }
+        }
     }//GEN-LAST:event_agregarActionPerformed
 
     private void apellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellidosActionPerformed
@@ -292,7 +290,6 @@ public class usuario extends javax.swing.JFrame {
     private javax.swing.JTextField clave;
     private javax.swing.JTextField correo;
     private javax.swing.JTextField direccion;
-    private javax.swing.JButton eliminar;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -303,7 +300,6 @@ public class usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JButton modificar;
     private javax.swing.JTextField nombres;
     private javax.swing.JComboBox<String> perspectivas;
     private javax.swing.JTextField telefono;

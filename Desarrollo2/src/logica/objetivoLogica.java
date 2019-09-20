@@ -103,18 +103,26 @@ public class objetivoLogica {
         return obj;
     }
     
+    public void editarObjetivo(Objetivo o) throws NonexistentEntityException, Exception{
+        objetivo.edit(o);
+    }
+    
     public static void main(String args[]) throws Exception {
         List<Objetivo> objetivos;
         objetivoLogica ob = new objetivoLogica();
-        objetivos = ob.objetivosPerspectivaCliente();
+        objetivos = ob.objetivosPerspectivaFinanciera();
         
         for(Objetivo o: objetivos){
-            List<Indicador> indicadores;
+            /*List<Indicador> indicadores;
             indicadores = o.getIndicadorList();
             for(Indicador i: indicadores){
                 System.out.println(i.getDescripcionIndicador());
             }
+            System.out.println(o.getDescripcionObjetivo());*/
+            System.out.println(o);
         }
+        /*String a = "a";
+        System.out.println(ob.buscarObjetivoDescripcion(a, objetivos));*/
      }
     
 }

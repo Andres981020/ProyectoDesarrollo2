@@ -5,6 +5,7 @@
  */
 package vista;
 
+import java.awt.TextField;
 import java.util.List;
 import javax.swing.JOptionPane;
 import logica.usuarioLogica;
@@ -24,6 +25,7 @@ public class login extends javax.swing.JFrame {
     public login() {
         super("Sistema de consolidacion de objetivos");
         initComponents();
+        
     }
     
 
@@ -38,12 +40,12 @@ public class login extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         identificacionUsuario = new javax.swing.JTextField();
-        claveUsuario = new javax.swing.JTextField();
         ingresarLogin = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         salir = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        claveUsuario = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -59,14 +61,6 @@ public class login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(identificacionUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 263, 40));
-
-        claveUsuario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        claveUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                claveUsuarioActionPerformed(evt);
-            }
-        });
-        getContentPane().add(claveUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 263, 40));
 
         ingresarLogin.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         ingresarLogin.setText("Ingresar");
@@ -93,7 +87,17 @@ public class login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 110, 40));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/fondoP.jpg"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 360));
+
+        claveUsuario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        claveUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                claveUsuarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(claveUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 260, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -136,15 +140,15 @@ public class login extends javax.swing.JFrame {
             }
             
             else if(identificacionUsuario.getText().equals(u.getCedula()) && claveUsuario.getText().equals(u.getClave()) && u.getTipoUsuario().equals("Perspectiva procesos internos")){
-               principalCrecimiento interfazPrincipal = new principalCrecimiento();
+               principalProcesos interfazPrincipal = new principalProcesos();
                interfazPrincipal.setVisible(true);
                dispose();
                bool = false;
                break;
             }
             
-            else if(identificacionUsuario.getText().equals(u.getCedula()) && claveUsuario.getText().equals(u.getClave()) && u.getTipoUsuario().equals("Perspectiva crecimiento y aprendizaje")){
-               principalProcesos interfazPrincipal = new principalProcesos();
+            else if(identificacionUsuario.getText().equals(u.getCedula()) && claveUsuario.getText().equals(u.getClave()) && u.getTipoUsuario().equals("Perspectiva crecimiento y aprendizaje")){               
+               principalCrecimiento interfazPrincipal = new principalCrecimiento();
                interfazPrincipal.setVisible(true);
                dispose();
                bool = false;
@@ -164,7 +168,7 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_ingresarLoginActionPerformed
 
     private void claveUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_claveUsuarioActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_claveUsuarioActionPerformed
 
     /**
@@ -203,7 +207,7 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField claveUsuario;
+    private javax.swing.JPasswordField claveUsuario;
     private javax.swing.JTextField identificacionUsuario;
     private javax.swing.JButton ingresarLogin;
     private javax.swing.JLabel jLabel1;

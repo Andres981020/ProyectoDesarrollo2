@@ -5,9 +5,11 @@
  */
 package logica;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Indicador;
+import modelo.Objetivo;
 import persistencia.IndicadorJpaController;
 import persistencia.exceptions.NonexistentEntityException;
 
@@ -37,4 +39,21 @@ public class indicadorLogica {
             indicador.destroy(i);
     }
     
+    public Indicador buscarIndicadorDescripcion(String descripcion, List<Objetivo> objetivos){
+        Indicador i = new Indicador(); 
+        List<Indicador> indicadores;
+        for(Objetivo o: objetivos){
+            indicadores = o.getIndicadorList();
+            for(Indicador ind: indicadores){
+                if(ind.getDescripcionIndicador().equals(descripcion)){
+                 i = ind;
+                }
+            }
+        }
+        return i;
+    }
+    
+    public void editarIndicador(Indicador ind) throws Exception{
+        indicador.edit(ind);
+    }
 }

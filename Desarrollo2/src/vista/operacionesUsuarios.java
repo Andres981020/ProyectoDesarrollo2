@@ -98,7 +98,8 @@ public class operacionesUsuarios extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -5, 1330, 590));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/fondoP.jpg"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -5, 1330, 520));
 
         modificar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         modificar.setText("Modificar usuario");
@@ -151,6 +152,10 @@ public class operacionesUsuarios extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(operacionesUsuarios.class.getName()).log(Level.SEVERE, null, ex);
             }
+            JOptionPane.showMessageDialog(null,"Modificacion del objetivo satisfactorio");
+            operacionesUsuarios prin = new operacionesUsuarios();
+            prin.setVisible(true);
+            dispose();
         }
         
         else{
@@ -170,6 +175,7 @@ public class operacionesUsuarios extends javax.swing.JFrame {
         } catch (IllegalOrphanException ex) {
             Logger.getLogger(operacionesUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
+        JOptionPane.showMessageDialog(null,"eliminacion de objetivo satisfactorio");
         operacionesUsuarios u = new operacionesUsuarios();
         u.setVisible(true);
         dispose();

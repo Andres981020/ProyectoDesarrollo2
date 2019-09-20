@@ -5,7 +5,9 @@
  */
 package logica;
 
+import java.util.List;
 import modelo.Iniciativa;
+import modelo.Objetivo;
 import persistencia.IniciativaJpaController;
 import persistencia.exceptions.NonexistentEntityException;
 
@@ -35,4 +37,21 @@ public class iniciativaLogica {
         iniciativa.destroy(i);
     }
     
+    public Iniciativa buscarIniciativaDescripcion(String descripcion, List<Objetivo> objetivos){
+        Iniciativa i = new Iniciativa(); 
+        List<Iniciativa> iniciativas;
+        for(Objetivo o: objetivos){
+            iniciativas = o.getIniciativaList();
+            for(Iniciativa ini: iniciativas){
+                if(ini.getDescripcionIniciativa().equals(descripcion)){
+                    i = ini;
+                }
+            }
+        }
+        return i;
+    }
+    
+    public void editarIniciativa(Iniciativa i) throws Exception{
+        iniciativa.edit(i);
+    }
 }
